@@ -7,9 +7,40 @@ FONTS = ('<link rel="preconnect" href="https://fonts.googleapis.com">'
 YT = "https://www.youtube.com/@LanternhallGames"
 MAIL = "support@lanternhallvr.com"
 
+import glob, html, os, re
+
+
+def load_releases():
+    """releases/<version>.md: a front-matter block (version, date, channel, title, announce) then '- ' bullets."""
+    out = []
+    for path in glob.glob("releases/*.md"):
+        meta, bullets = {}, []
+        text = open(path, encoding="utf-8").read()
+        m = re.match(r"---\n(.*?)\n---\n(.*)", text, re.S)
+        if m:
+            for line in m.group(1).splitlines():
+                if ":" in line:
+                    k, v = line.split(":", 1)
+                    meta[k.strip()] = v.strip()
+            body = m.group(2)
+        else:
+            body = text
+        for line in body.splitlines():
+            if line.startswith("- "):
+                bullets.append(line[2:].strip())
+        meta.setdefault("version", os.path.basename(path)[:-3])
+        meta["bullets"] = bullets
+        out.append(meta)
+    out.sort(key=lambda r: [int(x) for x in re.findall(r"\d+", r["version"])], reverse=True)
+    return out
+
+
+RELEASES = load_releases()
+LATEST = RELEASES[0] if RELEASES else None
+
 
 def head(title, desc, page):
-    nav = [("index.html", "Home"), ("support.html", "Support"), ("privacy.html", "Privacy")]
+    nav = [("index.html", "Home"), ("updates.html", "Updates"), ("support.html", "Support"), ("privacy.html", "Privacy")]
     links = "".join(f'<a href="{h}"{" aria-current=\"page\"" if h == page else ""}>{t}</a>' for h, t in nav)
     return f"""<!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8">
@@ -32,8 +63,10 @@ def head(title, desc, page):
 """
 
 
+VERSION = (f'<a class="ver" href="updates.html">v{LATEST["version"]} {LATEST.get("channel", "")} &middot; Release notes</a>' if LATEST else "")
+
 FOOT = f"""<footer><div class="foot-in">
-<span>&copy; 2026 Lanternhall Games</span>
+<span>&copy; 2026 Lanternhall Games</span>{VERSION}
 <nav><a href="support.html">Support</a><a href="privacy.html">Privacy</a><a href="{YT}">YouTube</a><a href="mailto:{MAIL}">{MAIL}</a></nav>
 </div></footer>
 </body></html>
@@ -166,15 +199,32 @@ used the online features, contact us and we will help remove any associated data
 </main>
 """ + FOOT
 
+def release_html(r):
+    items = "".join(f"<li>{html.escape(b)}</li>" for b in r["bullets"])
+    chan = f'<span class="chan">{html.escape(r.get("channel", ""))}</span>' if r.get("channel") else ""
+    title = f' &middot; {html.escape(r["title"])}' if r.get("title") else ""
+    return (f'<article class="rel" id="v{r["version"]}"><h2>v{r["version"]}{title} {chan}</h2>'
+            f'<p class="meta">{html.escape(r.get("date", ""))}</p><ul>{items}</ul></article>')
+
+
+UPDATES = head("Updates: Lanternhall", "Release notes for Lanternhall, the co-op VR quest game for Meta Quest.", "updates.html") + f"""
+<main class="doc">
+<h1>Updates</h1>
+<p class="meta">Release notes for every build of Lanternhall, newest first.</p>
+{"".join(release_html(r) for r in RELEASES)}
+</main>
+""" + FOOT
+
 NOTFOUND = head("Lost in the keep: Lanternhall", "Page not found.", "") + """
 <main class="doc" style="text-align:center"><h1>Lost in the keep</h1>
 <p class="meta">That page isn't here. Maybe it fell down the Belfry shaft.</p>
 <p><a class="btn" href="index.html">Back to Lanternhall</a></p></main>
 """ + FOOT
 
-for name, body in [("index.html", INDEX), ("support.html", SUPPORT), ("privacy.html", PRIVACY), ("404.html", NOTFOUND)]:
+for name, body in [("index.html", INDEX), ("updates.html", UPDATES), ("support.html", SUPPORT), ("privacy.html", PRIVACY), ("404.html", NOTFOUND)]:
     open(name, "w").write(body)
 open("CNAME", "w").write("lanternhallvr.com\n")
+open(".nojekyll", "w").write("")
 open("README.md", "w").write("# lanternhallvr.com\n\nStatic site for Lanternhall, served by GitHub Pages. "
                              "Edit `build.py` and run `python3 build.py` to regenerate the pages.\n")
 print("ok")

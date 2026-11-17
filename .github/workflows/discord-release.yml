@@ -1,0 +1,75 @@
+# Posts new release notes to Discord.
+# Trigger: a push to main that ADDS a file under releases/ (e.g. releases/0.10.0.md),
+# or a manual run (Actions tab → "Post release notes to Discord" → Run workflow → version).
+# Needs the repo secret DISCORD_WEBHOOK_URL (Settings → Secrets and variables → Actions).
+# A release file with "announce: false" in its front matter is never posted automatically.
+name: Post release notes to Discord
+
+on:
+  push:
+    branches: [main]
+    paths: ["releases/*.md"]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version to post (e.g. 0.9.0)"
+        required: true
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Find release files to post
+        id: files
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "list=releases/${{ github.event.inputs.version }}.md" >> "$GITHUB_OUTPUT"
+            echo "manual=1" >> "$GITHUB_OUTPUT"
+          else
+            list=$(git diff --name-only --diff-filter=A HEAD^ HEAD -- 'releases/*.md' | tr '\n' ' ')
+            echo "list=$list" >> "$GITHUB_OUTPUT"
+            echo "manual=0" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Post to Discord
+        if: steps.files.outputs.list != ''
+        env:
+          WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          FILES: ${{ steps.files.outputs.list }}
+          MANUAL: ${{ steps.files.outputs.manual }}
+        run: |
+          if [ -z "$WEBHOOK" ]; then echo "DISCORD_WEBHOOK_URL secret is not set; skipping."; exit 0; fi
+          python3 - <<'PY'
+          import json, os, re, urllib.request
+          for path in os.environ["FILES"].split():
+              text = open(path, encoding="utf-8").read()
+              meta, body = {}, text
+              m = re.match(r"---\n(.*?)\n---\n(.*)", text, re.S)
+              if m:
+                  for line in m.group(1).splitlines():
+                      if ":" in line:
+                          k, v = line.split(":", 1); meta[k.strip()] = v.strip()
+                  body = m.group(2)
+              if meta.get("announce", "true").lower() == "false" and os.environ["MANUAL"] != "1":
+                  print("skip (announce: false):", path); continue
+              ver = meta.get("version", os.path.basename(path)[:-3])
+              bullets = "\n".join("• " + l[2:].strip() for l in body.splitlines() if l.startswith("- "))
+              title = f"Lanternhall v{ver}" + (f": {meta['title']}" if meta.get("title") else "")
+              chan = meta.get("channel", "")
+              embed = {
+                  "title": title[:256],
+                  "url": f"https://lanternhallvr.com/updates.html#v{ver}",
+                  "description": bullets[:4000],
+                  "color": 0xE8662A,
+                  "footer": {"text": " · ".join(x for x in [chan, meta.get("date", "")] if x)},
+              }
+              data = json.dumps({"username": "Lanternhall", "embeds": [embed]}).encode()
+              req = urllib.request.Request(os.environ["WEBHOOK"], data=data,
+                                           headers={"Content-Type": "application/json", "User-Agent": "lanternhall-release-bot"})
+              urllib.request.urlopen(req).read()
+              print("posted", path)
+          PY
