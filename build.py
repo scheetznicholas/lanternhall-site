@@ -93,6 +93,11 @@ VR combat, and a party that falls if you don't watch each other's backs.</p></di
 solve the Gallery of Kings, about half an hour of handcrafted rooms from the Gatehouse to the throne.</p></div>
 <div class="card"><h3>The Emberking</h3><p>A three-phase boss fight. Stagger him, strike the crown, dodge his turrets
 and win the Emberking's Crown for your avatar.</p></div>
+<div class="card"><h3>The First King</h3><p>In the Gallery of Kings a giant stone king wakes, crushes his own statues and
+turns on you. Break his glowing joints, climb his back when he kneels and strike the rune.</p></div>
+<div class="card"><h3>&#x1F525; The Ember Pit</h3><p>Step through the iron gate in the Main Hall and survive wave after wave of the keep's
+fiercest: Cindershanks, archers, bats, knights, gold turrets and a boss every fifth wave. Clear 15 waves free; the Pit Masters board
+remembers the bravest.</p></div>
 <div class="card"><h3>Your Lantern Folk</h3><p>Dress your avatar in the Robing Room: hair, hats, tunics, colours and frames.
 Play on Normal, or swear the Oath for one-hit Hard mode and Ironheart rewards.</p></div>
 </div>
@@ -100,6 +105,7 @@ Play on Normal, or swear the Oath for one-hit Hard mode and Ironheart rewards.</
 <section>
 <h2>From Cinderkeep</h2>
 <div class="shots">
+<figure><img src="assets/shot-king.jpg" alt="The First King on his dais, the Gilded Hulker beside him" loading="lazy"><figcaption>The First King</figcaption></figure>
 <figure><img src="assets/shot-throne.jpg" alt="The Emberking's throne dome" loading="lazy"><figcaption>The Throne Dome</figcaption></figure>
 <figure><img src="assets/shot-belfry.jpg" alt="The Cinder Belfry lift climbing the shaft" loading="lazy"><figcaption>The Cinder Belfry lift</figcaption></figure>
 <figure><img src="assets/shot-boiler.jpg" alt="The great boiler in the Forge Boiler House" loading="lazy"><figcaption>The Forge Boiler House</figcaption></figure>
@@ -111,7 +117,7 @@ Play on Normal, or swear the Oath for one-hit Hard mode and Ironheart rewards.</
 <h2>At a glance</h2>
 <ul class="specs">
 <li>Meta Quest 3 &amp; 3S</li><li>1&ndash;4 player co-op</li><li>Hubs of up to 8</li><li>Voice chat</li>
-<li>Standing or seated</li><li>Snap or smooth turning</li><li>Left- or right-handed</li><li>Normal &amp; Hard</li>
+<li>Standing or seated</li><li>Snap or smooth turning</li><li>Left- or right-handed</li><li>Normal &amp; Hard</li><li>Wave mode</li>
 </ul>
 </section>
 </main>
