@@ -15,7 +15,7 @@ def load_releases():
     out = []
     for path in glob.glob("releases/*.md"):
         meta, bullets = {}, []
-        text = open(path, encoding="utf-8").read()
+        text = open(path, encoding="utf-8").read().replace("\r\n", "\n")
         m = re.match(r"---\n(.*?)\n---\n(.*)", text, re.S)
         if m:
             for line in m.group(1).splitlines():
@@ -228,9 +228,9 @@ NOTFOUND = head("Lost in the keep: Lanternhall", "Page not found.", "") + """
 """ + FOOT
 
 for name, body in [("index.html", INDEX), ("updates.html", UPDATES), ("support.html", SUPPORT), ("privacy.html", PRIVACY), ("404.html", NOTFOUND)]:
-    open(name, "w").write(body)
+    open(name, "w", encoding="utf-8", newline="\n").write(body)
 open("CNAME", "w").write("lanternhallvr.com\n")
 open(".nojekyll", "w").write("")
-open("README.md", "w").write("# lanternhallvr.com\n\nStatic site for Lanternhall, served by GitHub Pages. "
+open("README.md", "w", encoding="utf-8").write("# lanternhallvr.com\n\nStatic site for Lanternhall, served by GitHub Pages. "
                              "Edit `build.py` and run `python3 build.py` to regenerate the pages.\n")
 print("ok")
