@@ -1,0 +1,15 @@
+{
+ "schema": 1,
+ "updated": "2026-11-25T00:00:00Z",
+ "latest": {
+  "Beta": {
+   "version": "0.19.0",
+   "code": 1900
+  },
+  "Alpha": {
+   "version": "0.19.0",
+   "code": 1901
+  }
+ },
+ "notices": []
+}

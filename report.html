@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; img-src data:; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<link rel="icon" href="data:,">
+<title>Send a player report: Lanternhall</title>
+<style>
+:root{--bg:#17110c;--panel:#241a12;--ink:#f3e6cf;--dim:#bfae93;--gold:#f2c25c;--line:#4a3726}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:720px;margin:0 auto;padding:24px 16px 48px}
+h1{color:var(--gold);font-size:1.6rem;margin:0 0 4px}
+.meta{color:var(--dim);margin:0 0 20px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px;margin:0 0 16px;overflow-wrap:anywhere}
+table{border-collapse:collapse;width:100%}
+th{color:var(--dim);font-weight:600;text-align:left;vertical-align:top;padding:4px 12px 4px 0;white-space:nowrap}
+td{padding:4px 0}
+.btns{display:flex;flex-wrap:wrap;gap:10px;margin:8px 0 16px}
+button,a.btn{background:var(--gold);color:#1b130c;border:0;border-radius:8px;padding:10px 16px;font:600 1rem system-ui,sans-serif;text-decoration:none;cursor:pointer}
+a.btn.ghost{background:transparent;color:var(--gold);border:1px solid var(--gold)}
+pre{white-space:pre-wrap;margin:0;color:var(--dim);font-size:.85rem}
+.warn{color:#ffb4a0}
+</style></head><body><main>
+<h1>Send a player report</h1>
+<p class="meta">This page reads the report from the link itself, here in your browser. Nothing on this page is sent anywhere until you choose to.</p>
+<div id="none" class="card" hidden><p class="warn">No report found in this link.</p>
+<p>Open it from the game: Settings Book &rsaquo; Safety &rsaquo; Thy reports &rsaquo; the report &rsaquo; Send.</p></div>
+<div id="has" hidden>
+<div class="card"><table id="tbl"></table></div>
+<div class="btns"><button id="copy" type="button">Copy the report</button><a id="mail" class="btn ghost" href="#">Email it to support@lanternhallvr.com</a></div>
+<p id="copied" class="meta" hidden>Copied.</p>
+<p>Or send it to a moderator as a Discord direct message. Never post reports in public channels.</p>
+<div class="card"><pre id="raw"></pre></div>
+</div>
+<script>
+(function(){
+  var MAIL="support@lanternhallvr.com";
+  function b64url(s){s=s.replace(/-/g,"+").replace(/_/g,"/");while(s.length%4)s+="=";var bin=atob(s),bytes=new Uint8Array(bin.length);
+    for(var i=0;i<bin.length;i++)bytes[i]=bin.charCodeAt(i);return new TextDecoder("utf-8").decode(bytes);}
+  var h=location.hash.replace(/^#/,""),rec=null;
+  if(h.indexOf("r1.")===0){try{rec=JSON.parse(b64url(h.substring(3)));}catch(e){rec=null;}}
+  if(!rec||typeof rec!=="object"){document.getElementById("none").hidden=false;return;}
+  var WHY={1:"Hurtful words or voice",2:"Spoiling the play",3:"Unfit name or look",4:"Something else"};
+  var who=rec.who||{},by=rec.by||{};
+  var rows=[["Report",rec.c],["When (UTC)",rec.t],["Build",rec.b],["Why",WHY[rec.why]||rec.why],["Where",[rec.where,rec.scene,rec.area].filter(Boolean).join(" \u00b7 ")],
+    ["Hall code",rec.hall],["Session",rec.sid],["Bearers present",rec.n],
+    ["Reported",[who.name,who.raw&&who.raw!==who.name?"(typed: "+who.raw+")":"",who.tag?"tag "+who.tag:""].filter(Boolean).join(" ")],["Reported id",who.id],
+    ["By",[by.name,by.tag?"tag "+by.tag:""].filter(Boolean).join(" ")],["By id",by.id]];
+  var shown=rows.filter(function(r){return r[1]!==undefined&&r[1]!==null&&r[1]!=="";});
+  var tbl=document.getElementById("tbl");
+  shown.forEach(function(r){var tr=document.createElement("tr"),th=document.createElement("th"),td=document.createElement("td");
+    th.textContent=r[0];td.textContent=String(r[1]);tr.appendChild(th);tr.appendChild(td);tbl.appendChild(tr);});
+  var text="Lanternhall player report\n\n"+shown.map(function(r){return r[0]+": "+r[1];}).join("\n")+"\n\n(raw) "+JSON.stringify(rec);
+  document.getElementById("raw").textContent=JSON.stringify(rec,null,1);
+  var code=rec.c||"LH-??????";
+  document.getElementById("mail").href="mailto:"+MAIL+"?subject="+encodeURIComponent("Player report "+code)+"&body="+encodeURIComponent(text+"\n\nAnything to add:\n");
+  document.getElementById("copy").onclick=function(){
+    function done(){document.getElementById("copied").hidden=false;}
+    function fallback(){var ta=document.createElement("textarea");ta.value=text;document.body.appendChild(ta);ta.select();try{document.execCommand("copy");done();}catch(e){}document.body.removeChild(ta);}
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(done,fallback);}else fallback();
+  };
+  document.getElementById("has").hidden=false;
+})();
+</script>
+</main></body></html>

@@ -7,7 +7,7 @@ FONTS = ('<link rel="preconnect" href="https://fonts.googleapis.com">'
 YT = "https://www.youtube.com/@LanternhallGames"
 MAIL = "support@lanternhallvr.com"
 
-import glob, html, os, re
+import glob, html, json, os, re
 
 
 def load_releases():
@@ -143,8 +143,13 @@ shows the reason if it still fails. Please include that message if you email us.
 <p>Yes. Open your wrist menu, go to <b>Comfort</b>, and choose standing or seated, snap or smooth turning, and your sword hand.
 <b>Redo Setup</b> on the same page walks you through the first-time setup again.</p></details>
 <details><summary>How do I mute or report someone?</summary>
-<p>You can leave a hall at any time from the Fellowship Board or your wrist menu. To report a player, email us their in-game name,
-the hall code if you have it, and what happened. Meta's own reporting tools on your headset also work.</p></details>
+<p>Open your wrist menu's <b>Fellowship</b> tab (or poke a name on the Fellowship Board) and poke the player. Their card has
+<b>Mute</b> (you stop hearing them, only for you), <b>Block</b> (their voice, emotes and name are hidden from you, and you won't
+be matched into their halls), <b>Report</b> and, if you are the hall's host, <b>Show the Door</b> (they leave and can't come back
+to that hall for 15 minutes). Nobody is told that you muted or blocked them.</p>
+<p>A report is kept on your headset and, where available, sent to us at once. You can also send it yourself from the
+Settings Book's <b>Safety</b> page: it opens a page that lets you copy it or email it to <a href="mailto:{MAIL}">{MAIL}</a>.
+Please don't post reports in public channels. Meta's own reporting tools on your headset work too.</p></details>
 <details><summary>Is my progress saved?</summary>
 <p>Your level, unlocks and settings are saved on your headset. Uninstalling the game or clearing its data removes them.</p></details>
 </main>
@@ -153,7 +158,7 @@ the hall code if you have it, and what happened. Meta's own reporting tools on y
 PRIVACY = head("Privacy Policy: Lanternhall", "How Lanternhall handles your information.", "privacy.html") + f"""
 <main class="doc">
 <h1>Privacy Policy</h1>
-<p class="meta">Lanternhall, by Lanternhall Games &middot; Effective November 2026</p>
+<p class="meta">Lanternhall, by Lanternhall Games &middot; Effective November 2026 &middot; Updated with version 0.19.0 (reports, hall news)</p>
 
 <p>This policy explains what information Lanternhall (the VR game for Meta Quest) uses, why, and who handles it.
 We keep it short because we collect very little. Questions: <a href="mailto:{MAIL}">{MAIL}</a>.</p>
@@ -178,12 +183,20 @@ Distributed Authority) process connection details such as your IP address, sessi
 party through Unity's Vivox service. You can deny the microphone and still play.</li>
 <li><b>On your headset.</b> Your progress, unlocks, avatar look and settings are stored only on your headset. The game also keeps a
 small technical log on the headset to help diagnose connection problems. It is not uploaded.</li>
+<li><b>Player reports.</b> If you report a player, the report holds the reason you chose, the time, the game version, where it
+happened (hub, quest or Pit, and the hall code and session), how many players were there, and the in-game name and anonymous
+player ID of you and of the player you reported. It never holds voice recordings or anything about the other players. It is kept on
+your headset; it is sent to us through Unity's Moderation service when that is available, or only if you send it yourself
+(the report page decodes it in your browser: it is not sent to our website).</li>
+<li><b>Hall news.</b> The game reads a small public notice file (<code>notice.json</code>) from this website when it starts and every
+few minutes while you play, to show news on the Crier's Board and tell you when a new version is out. Nothing about you is sent
+with that request beyond what any web request carries (such as your IP address, handled by GitHub Pages). Offline, it is skipped.</li>
 <li><b>Crash and diagnostic data.</b> The Unity engine may send anonymous crash and performance diagnostics to Unity to help
 fix bugs.</li>
 </ul>
 
 <h2>Who processes it</h2>
-<p>Online features are provided by Unity Technologies (Unity Gaming Services and Vivox). The game is distributed through the
+<p>Online features are provided by Unity Technologies (Unity Gaming Services, including Moderation, and Vivox). The game is distributed through the
 Meta Horizon Store, so Meta's own terms and privacy policy apply to your Meta account and the store.
 See <a href="https://unity.com/legal/game-player-and-app-user-privacy-policy">Unity's privacy policy</a> and
 <a href="https://www.meta.com/legal/privacy-policy/">Meta's privacy policy</a>.</p>
@@ -227,10 +240,149 @@ NOTFOUND = head("Lost in the keep: Lanternhall", "Page not found.", "") + """
 <p><a class="btn" href="index.html">Back to Lanternhall</a></p></main>
 """ + FOOT
 
-for name, body in [("index.html", INDEX), ("updates.html", UPDATES), ("support.html", SUPPORT), ("privacy.html", PRIVACY), ("404.html", NOTFOUND)]:
+# ---------------------------------------------------------------- tidings: notice.json (Round T §7)
+
+NOTICE_SRC = "notice-src.json"
+CHANNELS = ("Beta", "Alpha")
+ID_RE = re.compile(r"^[a-z0-9-]{1,32}$")
+ISO_RE = re.compile(r"^\d{4}-\d\d-\d\dT\d\d:\d\d:\d\dZ$")
+
+
+def glyphs(s):
+    """Length the way the game counts it: an emoji (with its variation selector) is one."""
+    return len([c for c in s if c not in "\ufe0f\u200d"])
+
+
+def derive_latest(releases):
+    """The newest build per channel from releases/*.md: `code:` is the build of the release's `channel`, `alpha_code:` the
+    Alpha flavour of the same version (Round T §8: 0.19.0 = 1900 Beta / 1901 Alpha)."""
+    latest = {}
+    for r in releases:
+        cands = []
+        chan = r.get("channel", "Alpha")
+        if r.get("code", "").isdigit() and chan in CHANNELS: cands.append((chan, int(r["code"])))
+        if r.get("alpha_code", "").isdigit(): cands.append(("Alpha", int(r["alpha_code"])))
+        for c, code in cands:
+            if c not in latest or code > latest[c]["code"]:
+                latest[c] = {"version": r["version"], "code": code}
+    return latest
+
+
+def build_notice():
+    src = {"schema": 1, "notices": []}
+    if os.path.exists(NOTICE_SRC):
+        src = json.load(open(NOTICE_SRC, encoding="utf-8"))
+    latest = derive_latest(RELEASES)
+    for chan, o in (src.get("latest") or {}).items():   # a manual override can only RAISE the release-derived value
+        if chan in CHANNELS and isinstance(o, dict) and str(o.get("code", "")).isdigit():
+            if chan not in latest or int(o["code"]) > latest[chan]["code"]:
+                latest[chan] = {"version": str(o.get("version", "")), "code": int(o["code"])}
+    notices = src.get("notices") or []
+    if len(notices) > 3: raise SystemExit("notice-src.json: at most 3 notices")
+    out = []
+    for n in notices:
+        nid = n.get("id", "")
+        if not ID_RE.match(nid): raise SystemExit(f"notice id {nid!r}: must be [a-z0-9-], 1-32 characters")
+        title = n.get("title") or "Hear ye!"
+        text = n.get("text", "")
+        if not 1 <= glyphs(title) <= 24: raise SystemExit(f"notice {nid}: title 1-24 characters")
+        if glyphs(text) > 160 or text.count("\n") > 3: raise SystemExit(f"notice {nid}: text at most 160 characters and 3 line breaks")
+        for k in ("from", "until"):
+            if n.get(k) and not ISO_RE.match(n[k]): raise SystemExit(f"notice {nid}: {k} must be UTC ISO-8601 (2026-11-24T00:00:00Z)")
+        e = {"id": nid, "title": title, "text": text}
+        for k in ("from", "until"):
+            if n.get(k): e[k] = n[k]
+        e["wrist"] = "never" if n.get("wrist") == "never" else "once"
+        ch = [c for c in (n.get("channels") or list(CHANNELS)) if c in CHANNELS]
+        e["channels"] = ch or list(CHANNELS)
+        out.append(e)
+    # `updated` is stamped by Tools/release/notice.ps1 in notice-src.json; else the newest release date (stable between builds)
+    updated = src.get("updated") or ((RELEASES[0].get("date", "2026-01-01") + "T00:00:00Z") if RELEASES else "2026-01-01T00:00:00Z")
+    doc = {"schema": 1, "updated": updated, "latest": {c: latest[c] for c in CHANNELS if c in latest}, "notices": out}
+    data = json.dumps(doc, ensure_ascii=False, indent=1) + "\n"
+    if len(data.encode("utf-8")) > 8192: raise SystemExit("notice.json is over 8 KB: the game would ignore it")
+    open("notice.json", "w", encoding="utf-8", newline="\n").write(data)
+
+
+# ---------------------------------------------------------------- report.html (Round T §5): static, no network requests at all
+
+REPORT = r"""<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; img-src data:; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<link rel="icon" href="data:,">
+<title>Send a player report: Lanternhall</title>
+<style>
+:root{--bg:#17110c;--panel:#241a12;--ink:#f3e6cf;--dim:#bfae93;--gold:#f2c25c;--line:#4a3726}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:720px;margin:0 auto;padding:24px 16px 48px}
+h1{color:var(--gold);font-size:1.6rem;margin:0 0 4px}
+.meta{color:var(--dim);margin:0 0 20px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px;margin:0 0 16px;overflow-wrap:anywhere}
+table{border-collapse:collapse;width:100%}
+th{color:var(--dim);font-weight:600;text-align:left;vertical-align:top;padding:4px 12px 4px 0;white-space:nowrap}
+td{padding:4px 0}
+.btns{display:flex;flex-wrap:wrap;gap:10px;margin:8px 0 16px}
+button,a.btn{background:var(--gold);color:#1b130c;border:0;border-radius:8px;padding:10px 16px;font:600 1rem system-ui,sans-serif;text-decoration:none;cursor:pointer}
+a.btn.ghost{background:transparent;color:var(--gold);border:1px solid var(--gold)}
+pre{white-space:pre-wrap;margin:0;color:var(--dim);font-size:.85rem}
+.warn{color:#ffb4a0}
+</style></head><body><main>
+<h1>Send a player report</h1>
+<p class="meta">This page reads the report from the link itself, here in your browser. Nothing on this page is sent anywhere until you choose to.</p>
+<div id="none" class="card" hidden><p class="warn">No report found in this link.</p>
+<p>Open it from the game: Settings Book &rsaquo; Safety &rsaquo; Thy reports &rsaquo; the report &rsaquo; Send.</p></div>
+<div id="has" hidden>
+<div class="card"><table id="tbl"></table></div>
+<div class="btns"><button id="copy" type="button">Copy the report</button><a id="mail" class="btn ghost" href="#">Email it to MAILADDR</a></div>
+<p id="copied" class="meta" hidden>Copied.</p>
+<p>Or send it to a moderator as a Discord direct message. Never post reports in public channels.</p>
+<div class="card"><pre id="raw"></pre></div>
+</div>
+<script>
+(function(){
+  var MAIL="MAILADDR";
+  function b64url(s){s=s.replace(/-/g,"+").replace(/_/g,"/");while(s.length%4)s+="=";var bin=atob(s),bytes=new Uint8Array(bin.length);
+    for(var i=0;i<bin.length;i++)bytes[i]=bin.charCodeAt(i);return new TextDecoder("utf-8").decode(bytes);}
+  var h=location.hash.replace(/^#/,""),rec=null;
+  if(h.indexOf("r1.")===0){try{rec=JSON.parse(b64url(h.substring(3)));}catch(e){rec=null;}}
+  if(!rec||typeof rec!=="object"){document.getElementById("none").hidden=false;return;}
+  var WHY={1:"Hurtful words or voice",2:"Spoiling the play",3:"Unfit name or look",4:"Something else"};
+  var who=rec.who||{},by=rec.by||{};
+  var rows=[["Report",rec.c],["When (UTC)",rec.t],["Build",rec.b],["Why",WHY[rec.why]||rec.why],["Where",[rec.where,rec.scene,rec.area].filter(Boolean).join(" \u00b7 ")],
+    ["Hall code",rec.hall],["Session",rec.sid],["Bearers present",rec.n],
+    ["Reported",[who.name,who.raw&&who.raw!==who.name?"(typed: "+who.raw+")":"",who.tag?"tag "+who.tag:""].filter(Boolean).join(" ")],["Reported id",who.id],
+    ["By",[by.name,by.tag?"tag "+by.tag:""].filter(Boolean).join(" ")],["By id",by.id]];
+  var shown=rows.filter(function(r){return r[1]!==undefined&&r[1]!==null&&r[1]!=="";});
+  var tbl=document.getElementById("tbl");
+  shown.forEach(function(r){var tr=document.createElement("tr"),th=document.createElement("th"),td=document.createElement("td");
+    th.textContent=r[0];td.textContent=String(r[1]);tr.appendChild(th);tr.appendChild(td);tbl.appendChild(tr);});
+  var text="Lanternhall player report\n\n"+shown.map(function(r){return r[0]+": "+r[1];}).join("\n")+"\n\n(raw) "+JSON.stringify(rec);
+  document.getElementById("raw").textContent=JSON.stringify(rec,null,1);
+  var code=rec.c||"LH-??????";
+  document.getElementById("mail").href="mailto:"+MAIL+"?subject="+encodeURIComponent("Player report "+code)+"&body="+encodeURIComponent(text+"\n\nAnything to add:\n");
+  document.getElementById("copy").onclick=function(){
+    function done(){document.getElementById("copied").hidden=false;}
+    function fallback(){var ta=document.createElement("textarea");ta.value=text;document.body.appendChild(ta);ta.select();try{document.execCommand("copy");done();}catch(e){}document.body.removeChild(ta);}
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(done,fallback);}else fallback();
+  };
+  document.getElementById("has").hidden=false;
+})();
+</script>
+</main></body></html>
+""".replace("MAILADDR", MAIL)
+
+build_notice()
+for name, body in [("index.html", INDEX), ("updates.html", UPDATES), ("support.html", SUPPORT), ("privacy.html", PRIVACY), ("404.html", NOTFOUND),
+                   ("report.html", REPORT)]:
     open(name, "w", encoding="utf-8", newline="\n").write(body)
-open("CNAME", "w").write("lanternhallvr.com\n")
+open("CNAME", "w", newline="\n").write("lanternhallvr.com\n")
 open(".nojekyll", "w").write("")
-open("README.md", "w", encoding="utf-8").write("# lanternhallvr.com\n\nStatic site for Lanternhall, served by GitHub Pages. "
-                             "Edit `build.py` and run `python3 build.py` to regenerate the pages.\n")
+open("README.md", "w", encoding="utf-8", newline="\n").write("# lanternhallvr.com\n\nStatic site for Lanternhall, served by GitHub Pages. "
+                             "Edit `build.py` and run `python3 build.py` to regenerate the pages.\n\n"
+                             "Tidings: `notice-src.json` (edited by `Tools/release/notice.ps1` in the game repo) becomes `notice.json`, which the game "
+                             "reads; its `latest` block comes from the releases' `code:` / `alpha_code:` front matter (the newest per channel; "
+                             "`notice-src.json` may only raise it). `report.html` decodes a player report from its link fragment, offline.\n")
 print("ok")
