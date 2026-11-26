@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "updated": "2026-11-26T05:14:44Z",
+ "updated": "2026-11-26T06:01:06Z",
  "latest": {
   "Beta": {
    "version": "0.19.0",
@@ -15,10 +15,10 @@
   {
    "id": "notice-1125",
    "title": "Hear ye!",
-   "text": "Testing! 🌟🌟🌟",
-   "until": "2026-11-26T08:00:00Z",
+   "text": "Thank you for Playing Lanternhall! I hope you enjoy the game and feel free to send any feedback in your wayglass! Travel on Ye Adventurer! 💪🏃",
    "wrist": "once",
    "channels": [
+    "Beta",
     "Alpha",
     "Roblox"
    ]
