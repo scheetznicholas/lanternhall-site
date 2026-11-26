@@ -1,4 +1,16 @@
 {
  "schema": 1,
- "notices": []
+ "updated": "2026-11-26T05:14:44Z",
+ "notices": [
+  {
+   "id": "notice-1125",
+   "title": "Hear ye!",
+   "text": "Testing! 🌟🌟🌟",
+   "until": "2026-11-26T08:00:00Z",
+   "channels": [
+    "Alpha",
+    "Roblox"
+   ]
+  }
+ ]
 }
