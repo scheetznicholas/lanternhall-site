@@ -244,6 +244,7 @@ NOTFOUND = head("Lost in the keep: Lanternhall", "Page not found.", "") + """
 
 NOTICE_SRC = "notice-src.json"
 CHANNELS = ("Beta", "Alpha")
+NOTICE_PLACES = ("Beta", "Alpha", "Roblox")
 ID_RE = re.compile(r"^[a-z0-9-]{1,32}$")
 ISO_RE = re.compile(r"^\d{4}-\d\d-\d\dT\d\d:\d\d:\d\dZ$")
 
@@ -293,8 +294,10 @@ def build_notice():
         for k in ("from", "until"):
             if n.get(k): e[k] = n[k]
         e["wrist"] = "never" if n.get("wrist") == "never" else "once"
-        ch = [c for c in (n.get("channels") or list(CHANNELS)) if c in CHANNELS]
-        e["channels"] = ch or list(CHANNELS)
+        # Notice places (bible §4.10, decisions 2026-11-25): Beta, Alpha, Roblox; no list = all three. Quest builds before 0.20.0 read
+        # a list naming only Roblox as both flavours, so the notice app holds Roblox-only notices until 0.20.0 is the latest release.
+        ch = [c for c in (n.get("channels") or list(NOTICE_PLACES)) if c in NOTICE_PLACES]
+        e["channels"] = ch or list(NOTICE_PLACES)
         out.append(e)
     # `updated` is stamped by Tools/release/notice.ps1 in notice-src.json; else the newest release date (stable between builds)
     updated = src.get("updated") or ((RELEASES[0].get("date", "2026-01-01") + "T00:00:00Z") if RELEASES else "2026-01-01T00:00:00Z")
