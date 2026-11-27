@@ -3,12 +3,12 @@
  "updated": "2026-11-26T06:01:06Z",
  "latest": {
   "Beta": {
-   "version": "0.20.0",
-   "code": 2000
+   "version": "0.21.0",
+   "code": 2100
   },
   "Alpha": {
-   "version": "0.20.0",
-   "code": 2001
+   "version": "0.21.0",
+   "code": 2101
   }
  },
  "notices": [
