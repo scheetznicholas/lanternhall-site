@@ -6,6 +6,10 @@ FONTS = ('<link rel="preconnect" href="https://fonts.googleapis.com">'
          'family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">')
 YT = "https://www.youtube.com/@LanternhallGames"
 MAIL = "support@lanternhallvr.com"
+# The Roblox place's public link. None until the place is public: the home page's Roblox card then shows only its badge.
+# Set it to the place URL and the card gains a "Play on Roblox" button.
+ROBLOX_URL = None
+ROBLOX_CTA = (f'<div class="cta"><a class="btn" href="{ROBLOX_URL}">Play on Roblox</a></div>' if ROBLOX_URL else "")
 
 import glob, html, json, os, re
 
@@ -39,8 +43,21 @@ RELEASES = load_releases()
 LATEST = RELEASES[0] if RELEASES else None
 
 
-def head(title, desc, page):
-    nav = [("index.html", "Home"), ("updates.html", "Updates"), ("support.html", "Support"), ("privacy.html", "Privacy")]
+def load_roblox():
+    """roblox/releases.json (made by roblox_import.py from the Roblox repo's release log + roblox/notes.json), newest first.
+    It never feeds notice.json or the Discord Action: both read releases/*.md only."""
+    if not os.path.exists("roblox/releases.json"): return []
+    doc = json.load(open("roblox/releases.json", encoding="utf-8"))
+    if doc.get("schema") != 1: raise SystemExit("roblox/releases.json: unknown schema")
+    return doc.get("releases") or []
+
+
+ROBLOX_RELEASES = load_roblox()
+
+
+def head(title, desc, page, og_image="assets/hero.jpg", bar=""):
+    """`bar`: extra markup inside the sticky header, under the links (the guide's book bar)."""
+    nav = [("index.html", "Home"), ("guide.html", "Guide"), ("updates.html", "Updates"), ("support.html", "Support"), ("privacy.html", "Privacy")]
     links = "".join(f'<a href="{h}"{" aria-current=\"page\"" if h == page else ""}>{t}</a>' for h, t in nav)
     return f"""<!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8">
@@ -49,7 +66,7 @@ def head(title, desc, page):
 <meta name="description" content="{desc}">
 <meta property="og:title" content="{title}">
 <meta property="og:description" content="{desc}">
-<meta property="og:image" content="https://lanternhallvr.com/assets/hero.jpg">
+<meta property="og:image" content="https://lanternhallvr.com/{og_image}">
 <meta name="theme-color" content="#17110c">
 <link rel="icon" href="assets/favicon.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
@@ -59,7 +76,7 @@ def head(title, desc, page):
 <header class="nav"><div class="nav-in">
 <a class="brand" href="index.html"><img src="assets/favicon.png" alt="">Lanternhall</a>
 <nav class="nav-links">{links}</nav>
-</div></header>
+</div>{bar}</header>
 """
 
 
@@ -78,10 +95,19 @@ INDEX = head("Lanternhall: co-op VR quests for Meta Quest",
 <div class="hero"><img src="assets/hero.jpg" alt="Four Lantern Folk adventurers face the Emberking in his throne dome"></div>
 <div class="tagline">
 <h1>Light your lantern. Brave the keep.</h1>
+<h2 class="ways-h">Two ways to play</h2>
+<div class="ways">
+<div class="card way"><h3>🥽 Meta Quest (VR)</h3><p class="way-for">Quest 3 and 3S</p>
 <p>A four-player co-op VR quest game for Meta Quest. Gather your party in Lanternhall, step onto the gate stone,
 and fight your way through Cinderkeep to the throne of the Emberking.</p>
 <div class="cta"><a class="btn" href="{YT}">Watch on YouTube</a><a class="btn ghost" href="support.html">Support &amp; FAQ</a></div>
-<span class="badge">Beta coming soon</span>
+<span class="badge">Open beta in December &middot; full release January</span></div>
+<div class="card way"><h3>🎮 Roblox</h3><p class="way-for">PC, phone and tablet</p>
+<p>The same hall and the same quests, built for Roblox. Gather your party in Lanternhall and fight through Cinderkeep
+with mouse or touch.</p>
+{ROBLOX_CTA}<span class="badge">Coming to Roblox: beta in December &middot; full release January</span></div>
+</div>
+<div class="cta"><a class="btn ghost" href="guide.html">📖 Read the Bearer's Guide</a></div>
 </div>
 <main>
 <section>
@@ -226,11 +252,33 @@ def release_html(r):
             f'<p class="meta">{html.escape(r.get("date", ""))}</p><ul>{items}</ul></article>')
 
 
-UPDATES = head("Updates: Lanternhall", "Release notes for Lanternhall, the co-op VR quest game for Meta Quest.", "updates.html") + f"""
+def roblox_release_html(r):
+    items = "".join(f"<li>{html.escape(b)}</li>" for b in r["bullets"])
+    title = f' &middot; {html.escape(r["title"])}' if r.get("title") else ""
+    return (f'<article class="rel"><h2>v{html.escape(r["version"])}{title} <span class="chan">Roblox</span></h2>'
+            f'<p class="meta">{html.escape(r.get("date", ""))}</p><ul>{items}</ul></article>')
+
+
+def rel_tabs(current):
+    """The Quest / Roblox tabs. Each pane carries its own copy, so the shown tab is marked without scripts."""
+    tabs = [("quest", "🥽 Meta Quest"), ("roblox", "🎮 Roblox")]
+    return ('<nav class="rel-tabs" aria-label="Platform">' + "".join(
+        f'<a href="#{k}"{" aria-current=\"true\"" if k == current else ""}>{t}</a>' for k, t in tabs) + "</nav>")
+
+
+# The Roblox pane shows only when #roblox is the target (CSS :target); otherwise the Quest pane shows, so its #v<version> anchors work.
+UPDATES = head("Updates: Lanternhall", "Release notes for Lanternhall, the co-op VR quest game for Meta Quest, and its Roblox version.",
+               "updates.html") + f"""
 <main class="doc">
 <h1>Updates</h1>
 <p class="meta">Release notes for every build of Lanternhall, newest first.</p>
+<section class="rel-pane" id="roblox">{rel_tabs("roblox")}
+<p class="meta">The Roblox version opens its public beta in December, with the full release in January. These are its latest updates.</p>
+{"".join(roblox_release_html(r) for r in ROBLOX_RELEASES)}
+</section>
+<section class="rel-pane" id="quest">{rel_tabs("quest")}
 {"".join(release_html(r) for r in RELEASES)}
+</section>
 </main>
 """ + FOOT
 
@@ -239,6 +287,177 @@ NOTFOUND = head("Lost in the keep: Lanternhall", "Page not found.", "") + """
 <p class="meta">That page isn't here. Maybe it fell down the Belfry shaft.</p>
 <p><a class="btn" href="index.html">Back to Lanternhall</a></p></main>
 """ + FOOT
+
+# ---------------------------------------------------------------- guide.html: the Bearer's Guide (G-web-guide.md in the game repo)
+# Reads guide/guide.json (schema lanternhall.guide/1, the game's export, copied with its plates into guide/img/ by guide_import.py).
+# Every word of guide text comes from that export (the game's docs/specs/G-game-guide-pages.md); nothing is retyped here. A side's
+# `web` text replaces its body on the site. A great foe's sealed sides, with his Fells in and Tip, fold into one closed <details>.
+
+GUIDE_JSON = "guide/guide.json"
+GUIDE_IMG = "guide/img/"
+# The credits block (G-web §6, the game's docs/credits.md). "Voices by Cameron Clanton." is added the day a build ships his recordings.
+GUIDE_CREDITS = "Lanternhall is made by Nicholas Scheetz (ShadowStorm)."
+FLAME_SVG = ('<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><symbol id="g-flame" viewBox="0 0 16 20">'
+             '<path d="M8 1C9 6 14 8.5 14 13.5A6 6 0 0 1 2 13.5C2 10.5 4 8.6 5.2 6.6c.3 2.2 1.1 3.3 2.3 3.5C6.8 7 7 4 8 1z"/></symbol></svg>')
+FACT_NAMES = (("fellsIn", "Fells in"), ("where", "Where"), ("tip", "Tip"))
+COUNT_NAMES = {"foe": ("foe", "foes"), "boss": ("great foe", "great foes"), "topic": ("topic", "topics")}
+
+
+def webp_size(path):
+    """(width, height) from a .webp header (VP8, VP8L or VP8X); a missing file stops the build."""
+    if not os.path.exists(path): raise SystemExit(f"guide: {path} is missing (run python guide_import.py)")
+    b = open(path, "rb").read(30)
+    kind = b[12:16]
+    if kind == b"VP8X": return 1 + int.from_bytes(b[24:27], "little"), 1 + int.from_bytes(b[27:30], "little")
+    if kind == b"VP8 ": return int.from_bytes(b[26:28], "little") & 0x3FFF, int.from_bytes(b[28:30], "little") & 0x3FFF
+    if kind == b"VP8L":
+        bits = int.from_bytes(b[21:25], "little")
+        return (bits & 0x3FFF) + 1, ((bits >> 14) & 0x3FFF) + 1
+    raise SystemExit(f"guide: {path} is not a webp")
+
+
+def g_img(pid, alt, sizes=None, lazy=True):
+    """The big file as src; with `sizes`, the _s file joins it in a srcset."""
+    big = f"{GUIDE_IMG}{pid}.webp"
+    w, h = webp_size(big)
+    srcset = ""
+    if sizes:
+        small = f"{GUIDE_IMG}{pid}_s.webp"
+        srcset = f' srcset="{small} {webp_size(small)[0]}w, {big} {w}w" sizes="{sizes}"'
+    return (f'<img src="{big}"{srcset} width="{w}" height="{h}" alt="{html.escape(alt)}"'
+            f'{" loading=\"lazy\"" if lazy else ""} decoding="async">')
+
+
+def g_lines(text):
+    """Each line of a side is its own line; an emoji-led line needs no bullet."""
+    return "".join(f'<p class="g-l">{html.escape(l.strip())}</p>' for l in text.split("\n") if l.strip())
+
+
+def g_side(s, tag="h4"):
+    return f'<{tag}>{html.escape(s["heading"])}</{tag}>{g_lines(s.get("web") or s["body"])}'
+
+
+def g_fierce(n):
+    flames = "".join(f'<svg class="g-fl{" on" if i < n else ""}" viewBox="0 0 16 20" aria-hidden="true"><use href="#g-flame"/></svg>' for i in range(5))
+    return f'<p class="g-fierce" role="img" aria-label="Fierceness {n} of 5">{flames}</p>'
+
+
+def g_facts(facts, keys):
+    rows = "".join(f"<dt>{name}</dt><dd>{html.escape(facts[k])}</dd>" for k, name in FACT_NAMES if k in keys and facts.get(k))
+    return f'<dl class="g-facts">{rows}</dl>' if rows else ""
+
+
+PLATE_SIZES = "(min-width: 900px) 360px, (min-width: 552px) 480px, calc(100vw - 72px)"
+
+
+def g_head(it):
+    return (f'<h3>{html.escape(it["name"])}</h3><p class="g-epi">{html.escape(it.get("epithet", ""))}</p>'
+            f'{g_fierce(int(it.get("danger", 0)))}')
+
+
+def g_foe(it, lazy):
+    sides = "".join(g_side(s) for s in it["sections"])
+    return (f'<article class="g-card g-foe" id="{it["id"]}"><div class="g-plate">{g_img(it["image"], it["alt"], PLATE_SIZES, lazy)}</div>'
+            f'<div class="g-text">{g_head(it)}{g_facts(it.get("facts") or {}, ("fellsIn", "where", "tip"))}{sides}</div></article>')
+
+
+def g_boss(it, lazy):
+    facts = it.get("facts") or {}
+    open_sides = "".join(g_side(s) for s in it["sections"] if not s.get("sealed"))
+    sealed = [s for s in it["sections"] if s.get("sealed")]
+    inset = ""
+    if it.get("inset"):
+        inset = (f'<figure class="g-inset">{g_img(it["inset"], it["name"] + ", the way through his armour", "(min-width: 600px) 480px, calc(100vw - 104px)")}'
+                 f'</figure>')
+    # the inset sits at the top of the side it heads in the book (His Armour, underImage): every inset shows the way in
+    at = next((i for i, s in enumerate(sealed) if s.get("underImage")), 0)
+    fold = g_facts(facts, ("fellsIn", "tip")) + "".join((inset if i == at else "") + g_side(s) for i, s in enumerate(sealed))
+    return (f'<article class="g-card g-boss" id="{it["id"]}"><div class="g-plate">{g_img(it["image"], it["alt"], PLATE_SIZES, lazy)}</div>'
+            f'<div class="g-text">{g_head(it)}{g_facts(facts, ("where",))}{open_sides}</div>'
+            f'<details class="g-fold"><summary>⚠ Spoilers: how to fell it</summary>{fold}</details></article>')
+
+
+def g_topic(it):
+    cap = next((s for s in it["sections"] if s["heading"] == "Caption"), None)
+    rest = [s for s in it["sections"] if s is not cap]
+    figcap = f"<figcaption>{g_lines(cap.get('web') or cap['body'])}</figcaption>" if cap else ""
+    fig = f'<figure class="g-vig">{g_img(it["image"], it["alt"], "(min-width: 900px) 440px, calc(100vw - 72px)")}{figcap}</figure>'
+    sides = "".join(g_side(s, "h3" if i == 0 else "h4") for i, s in enumerate(rest))
+    return f'<article class="g-card g-topic" id="{it["id"]}">{fig}{sides}</article>'
+
+
+def g_note(it):
+    return '<div class="g-note">' + "".join(f'<p class="g-nh">{html.escape(s["heading"])}</p>{g_lines(s.get("web") or s["body"])}'
+                                            for s in it["sections"]) + "</div>"
+
+
+def g_tail(pid):
+    return f'<div class="g-tail">{g_img(pid, "")}</div>' if pid else ""
+
+
+def g_book(book, state):
+    out = [f'<section class="g-book" id="book-{book["id"]}"><h2>{html.escape(book["emoji"])} {html.escape(book["title"])}</h2>'
+           f'<p class="g-line">{html.escape(book["line"])}</p>']
+    cards, tail = [], ""
+    two = " g-two" if all(i["kind"] in ("page", "topic") for i in book["items"]) else ""
+
+    def flush():
+        if cards: out.append(f'<div class="g-cards{two}">{"".join(cards)}</div>')
+        if tail: out.append(g_tail(tail))
+        cards.clear()
+
+    for it in book["items"]:
+        k = it["kind"]
+        if k == "page":
+            out.append(g_note(it))
+        elif k == "world":
+            flush()
+            c = it.get("colour", "#E8662A").lstrip("#")
+            r, g, b = (int(c[i:i + 2], 16) for i in (0, 2, 4))
+            out.append(f'<div class="g-world" id="{book["id"]}-{it["id"]}" style="background:rgba({r},{g},{b},.18);border-color:#{c}">'
+                       f'<h3>{html.escape(it["emoji"])} {html.escape(it["name"])}</h3><p>{html.escape(it.get("line", ""))}</p></div>')
+            tail = it.get("tailpiece", "")
+        elif k in ("foe", "boss"):
+            cards.append((g_foe if k == "foe" else g_boss)(it, lazy=state["lazy"]))
+            state["lazy"] = True
+        elif k == "topic":
+            cards.append(g_topic(it))
+    flush()
+    out.append('<p class="g-up"><a href="#contents">↑ Contents</a></p></section>')
+    return "".join(out)
+
+
+def build_guide():
+    guide = json.load(open(GUIDE_JSON, encoding="utf-8"))
+    if guide.get("schema") != "lanternhall.guide/1": raise SystemExit(f"{GUIDE_JSON}: unknown schema {guide.get('schema')!r}")
+    books = sorted(guide["books"], key=lambda b: b.get("order", 0))
+    ids = ["contents"] + [f"book-{b['id']}" for b in books]
+    for b in books:
+        for it in b["items"]:
+            if it["kind"] == "world": ids.append(f"{b['id']}-{it['id']}")
+            elif it["kind"] != "page":
+                ids.append(it["id"])
+                if not it.get("alt", "").strip(): raise SystemExit(f"guide: {it['id']} has no Alt: text")
+    dup = sorted({i for i in ids if ids.count(i) > 1})
+    if dup: raise SystemExit(f"guide: duplicate anchors {dup}")
+    contents = []
+    for b in books:
+        n = {}
+        for it in b["items"]:
+            if it["kind"] in COUNT_NAMES: n[it["kind"]] = n.get(it["kind"], 0) + 1
+        count = " &middot; ".join(f"{v} {COUNT_NAMES[k][v != 1]}" for k, v in n.items())
+        contents.append(f'<a class="g-bookcard" href="#book-{b["id"]}"><span class="g-be" aria-hidden="true">{html.escape(b["emoji"])}</span>'
+                        f'<b>{html.escape(b["title"])}</b><span class="g-bl">{html.escape(b["line"])}</span><span class="g-bn">{count}</span></a>')
+    bar = ('<nav class="g-bar" aria-label="Books">' + '<span aria-hidden="true">&middot;</span>'.join(
+        f'<a href="#book-{b["id"]}">{html.escape(b["emoji"])} {html.escape(b.get("plaque", b["title"]).split(" · ")[-1])}</a>' for b in books) + "</nav>")
+    intro = guide.get("intro", "")
+    desc = html.escape(re.sub(r"^\W+", "", intro))   # the intro without its leading emoji
+    state = {"lazy": False}   # the first foe's plate loads at once; every other picture is lazy
+    body = "".join(g_book(b, state) for b in books)
+    return (head("The Bearer's Guide · Lanternhall", desc, "guide.html", og_image="guide/img/og_guide.jpg", bar=bar) +
+            f'<main class="guide">{FLAME_SVG}<div class="g-top" id="contents"><h1>The Bearer\'s Guide</h1>'
+            f'<p class="g-intro">{html.escape(intro)}</p><nav class="g-books" aria-label="Contents">{"".join(contents)}</nav></div>'
+            f'{body}<aside class="g-credits"><p>{html.escape(GUIDE_CREDITS)}</p></aside></main>\n' + FOOT)
 
 # ---------------------------------------------------------------- tidings: notice.json (Round T §7)
 
@@ -378,8 +597,8 @@ pre{white-space:pre-wrap;margin:0;color:var(--dim);font-size:.85rem}
 """.replace("MAILADDR", MAIL)
 
 build_notice()
-for name, body in [("index.html", INDEX), ("updates.html", UPDATES), ("support.html", SUPPORT), ("privacy.html", PRIVACY), ("404.html", NOTFOUND),
-                   ("report.html", REPORT)]:
+for name, body in [("index.html", INDEX), ("guide.html", build_guide()), ("updates.html", UPDATES), ("support.html", SUPPORT),
+                   ("privacy.html", PRIVACY), ("404.html", NOTFOUND), ("report.html", REPORT)]:
     open(name, "w", encoding="utf-8", newline="\n").write(body)
 open("CNAME", "w", newline="\n").write("lanternhallvr.com\n")
 open(".nojekyll", "w").write("")
@@ -387,5 +606,11 @@ open("README.md", "w", encoding="utf-8", newline="\n").write("# lanternhallvr.co
                              "Edit `build.py` and run `python3 build.py` to regenerate the pages.\n\n"
                              "Tidings: `notice-src.json` (edited by `Tools/release/notice.ps1` in the game repo) becomes `notice.json`, which the game "
                              "reads; its `latest` block comes from the releases' `code:` / `alpha_code:` front matter (the newest per channel; "
-                             "`notice-src.json` may only raise it). `report.html` decodes a player report from its link fragment, offline.\n")
+                             "`notice-src.json` may only raise it). `report.html` decodes a player report from its link fragment, offline.\n\n"
+                             "The Bearer's Guide: `guide.html` is built from `guide/guide.json` and `guide/img/`, which `python guide_import.py` "
+                             "copies from the game repo (its guide export and web plates); rerun it, then build.py, when the guide changes.\n\n"
+                             "Roblox: the Updates page's Roblox tab reads `roblox/releases.json`, which `python roblox_import.py` makes from the "
+                             "Roblox repo's `docs/releases.json` (versions and dates) and the player-facing notes in `roblox/notes.json`. It lives "
+                             "outside `releases/` so the Discord Action and `notice.json` never see it. `ROBLOX_URL` in build.py stays None "
+                             "until the Roblox place is public.\n")
 print("ok")

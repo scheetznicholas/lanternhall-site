@@ -1,0 +1,1527 @@
+{
+  "schema": "lanternhall.guide/1",
+  "source": "docs/specs/G-game-guide-pages.md",
+  "generated": "2026-11-27T10:08:35Z",
+  "gameVersion": "0.20.0",
+  "intro": "🏮 Welcome, traveler. Here lie the three books that stand beside the Hall of Glories in Lanternhall: the foes of each world, the great foes who rule them, and all a bearer ought to know. Read before thou ridest out, or after a hard fall. A great foe's ways lie folded, for those who would meet him first.",
+  "sealText": "🔏 Meet him first, or break the seal.",
+  "books": [
+    {
+      "id": "foes",
+      "order": 0,
+      "emoji": "📕",
+      "plaque": "I · Foes",
+      "title": "The Book of Foes",
+      "line": "Know thy foe, and keep thy hearts.",
+      "items": [
+        {
+          "kind": "page",
+          "id": "read-foes",
+          "order": 0,
+          "emoji": "📖",
+          "name": "Reading the Plates",
+          "world": "",
+          "sealed": false,
+          "plate": "",
+          "inset": "",
+          "vignette": "",
+          "image": "",
+          "alt": "",
+          "sections": [
+            {
+              "heading": "Reading the Plates",
+              "body": "Each foe hath four sides. The plate showeth its face. The flames tell how fierce it is, from one to five. Fells in sayeth how many blows lay it low. Turn on for how it fighteth, how to fell it, and its tale.",
+              "web": "Each foe hath a plate, a fierceness of one to five flames, and how many blows lay it low. Below are how it fighteth, how to fell it, and its tale.",
+              "sealed": false,
+              "underImage": false,
+              "words": 43,
+              "budget": 45
+            },
+            {
+              "heading": "The First Rule",
+              "body": "❤️ Every blow from any foe costeth one whole heart. Two hearts on the Normal oath, one on the Hard.\n👁️ Every foe warneth before it striketh. Learn the warning, and the blow is thine to dodge.",
+              "sealed": false,
+              "underImage": false,
+              "words": 37,
+              "budget": 45
+            }
+          ]
+        },
+        {
+          "kind": "world",
+          "id": "cinderkeep",
+          "order": 1,
+          "emoji": "🔥",
+          "name": "Cinderkeep",
+          "colour": "#E8662A",
+          "line": "The keep of the cold hearth. Its foes are hot of head and short of temper.",
+          "tailpiece": "tp_cinderkeep"
+        },
+        {
+          "kind": "foe",
+          "id": "cindershank",
+          "order": 2,
+          "emoji": "⚔️",
+          "name": "Cindershank",
+          "world": "cinderkeep",
+          "epithet": "the Rusher",
+          "danger": 2,
+          "seal": "open",
+          "facts": {
+            "fellsIn": "2 sword blows, 2 arrows, or 1 headshot",
+            "where": "All over Cinderkeep, and every Pit wave",
+            "tip": "Stand back to back; no rusher gets behind."
+          },
+          "sealed": false,
+          "plate": "pl_cindershank",
+          "inset": "",
+          "vignette": "",
+          "image": "pl_cindershank",
+          "alt": "A small sooty cinderdwarf leaning in, eyes flaring, one fist drawn back, beside an ash grate.",
+          "sections": [
+            {
+              "heading": "How It Fighteth",
+              "body": "It boileth up out of an ash grate and runneth at thee, faster than thou walkest. Close by, it stoppeth, its eyes flare bright, and half a breath later the fist cometh. Then it catcheth its breath.",
+              "sealed": false,
+              "underImage": false,
+              "words": 37,
+              "budget": 45
+            },
+            {
+              "heading": "How to Fell It",
+              "body": "👁️ When the eyes flare, step back or raise thy shield.\n⚔️ Then strike twice. Each blow knocketh it back a stride.\n🏹 One arrow to the head felleth it.\n🔥 A hall never sendeth more than six at once.",
+              "sealed": false,
+              "underImage": false,
+              "words": 40,
+              "budget": 45
+            },
+            {
+              "heading": "Lore",
+              "body": "The lore book telleth what they are: unswept ash. This book addeth that they hate brooms, sing badly, and each one thinketh itself the Emberking's favourite. They laugh when a bearer falleth. They do not know why.",
+              "sealed": false,
+              "underImage": false,
+              "words": 37,
+              "budget": 45
+            }
+          ]
+        },
+        {
+          "kind": "foe",
+          "id": "thornshot",
+          "order": 3,
+          "emoji": "⚔️",
+          "name": "Thornshot",
+          "world": "cinderkeep",
+          "epithet": "the Elf Archer",
+          "danger": 2,
+          "seal": "open",
+          "facts": {
+            "fellsIn": "2 sword blows, 2 arrows, or 1 headshot",
+            "where": "Walls, ledges and galleries above thee",
+            "tip": "One bearer shieldeth; the other shooteth."
+          },
+          "sealed": false,
+          "plate": "pl_thornshot",
+          "inset": "",
+          "vignette": "",
+          "image": "pl_thornshot",
+          "alt": "A thin elf archer in a thorn crown at full draw on a castle ledge, the arrow glowing orange.",
+          "sections": [
+            {
+              "heading": "How It Fighteth",
+              "body": "It keepeth to its ledge and looseth every few breaths at the nearest bearer it can see. The orange glow on the drawn arrow is thy warning. Come near, and it backeth away along its ledge.",
+              "sealed": false,
+              "underImage": false,
+              "words": 36,
+              "budget": 45
+            },
+            {
+              "heading": "How to Fell It",
+              "body": "🛡️ Raise thy shield toward the orange glow.\n⚔️ A quick, sharp swing at the arrow sendeth it back with double bite.\n🏹 Or shoot first: one arrow to the head.\n🪜 It retreateth along its ledge, so corner it at the end.",
+              "sealed": false,
+              "underImage": false,
+              "words": 43,
+              "budget": 45
+            },
+            {
+              "heading": "Lore",
+              "body": "The Thornwood elves came to Cinderkeep as guests, to trade arrows for ale by the great hearth. When the hearth went cold they stayed to keep warm, and the cinders kept them. Their aim is still good. Their manners are not.",
+              "sealed": false,
+              "underImage": false,
+              "words": 41,
+              "budget": 45
+            }
+          ]
+        },
+        {
+          "kind": "foe",
+          "id": "cinderwing",
+          "order": 4,
+          "emoji": "⚔️",
+          "name": "Cinderwing",
+          "world": "cinderkeep",
+          "epithet": "the Ember Bat",
+          "danger": 3,
+          "seal": "open",
+          "facts": {
+            "fellsIn": "1 arrow · 2 sword blows (1 when stunned)",
+            "where": "Rafters and high halls; the Pit from wave 6",
+            "tip": "Call \"Bat!\" and point. Shields up together."
+          },
+          "sealed": false,
+          "plate": "pl_cinderwing",
+          "inset": "",
+          "vignette": "",
+          "image": "pl_cinderwing",
+          "alt": "A round ember bat hovering with wings flared and a glowing mouth; a second bat swoops low.",
+          "sections": [
+            {
+              "heading": "How It Fighteth",
+              "body": "It hovereth out of reach and keepeth its distance. Before it spitteth, it holdeth still, its wings flare and its mouth gloweth. The fireball floateth slowly. After each shot it swoopeth low for a breath or so, then climbeth away.",
+              "sealed": false,
+              "underImage": false,
+              "words": 40,
+              "budget": 45
+            },
+            {
+              "heading": "How to Fell It",
+              "body": "🏹 One arrow to the body felleth it.\n⚔️ Swat its fireball back with a brisk swing: the bat falleth.\n🛡️ Shields and arrows stop fireballs.\n⚔️ Strike when it swoopeth low.\n🔔 In the Belfry, ring the bell: every bat is stunned.",
+              "sealed": false,
+              "underImage": false,
+              "words": 43,
+              "budget": 45
+            },
+            {
+              "heading": "Lore",
+              "body": "Cinderwings roost in the keep's cold chimneys and hate a clean flue. They hoard soot the way magpies hoard spoons. A sleepy Cinderwing is almost sweet. There are no sleepy ones left.",
+              "sealed": false,
+              "underImage": false,
+              "words": 32,
+              "budget": 45
+            }
+          ]
+        },
+        {
+          "kind": "foe",
+          "id": "spitebolt",
+          "order": 5,
+          "emoji": "⚔️",
+          "name": "Spitebolt",
+          "world": "cinderkeep",
+          "epithet": "the Crossbow Turret",
+          "danger": 3,
+          "seal": "open",
+          "facts": {
+            "fellsIn": "2 arrows to the drum · 4 sword blows",
+            "where": "Tower tops, the Belfry; the Pit from wave 8",
+            "tip": "One draweth its aim; another goeth behind."
+          },
+          "sealed": false,
+          "plate": "pl_spitebolt",
+          "inset": "",
+          "vignette": "",
+          "image": "pl_spitebolt",
+          "alt": "An iron crossbow turret on a pivot base, seen from behind, its winch drum glowing.",
+          "sections": [
+            {
+              "heading": "How It Fighteth",
+              "body": "It is no beast but a machine, and it turneth all the way round. When the bolt tip gloweth red and the ratchet clicketh, a swift bolt followeth within a breath. Then it windeth again for a few breaths.",
+              "sealed": false,
+              "underImage": false,
+              "words": 39,
+              "budget": 45
+            },
+            {
+              "heading": "How to Fell It",
+              "body": "🎯 Its weak spot is the glowing winch drum on its back: two arrows.\n🛡️ Shield the bolt, or parry it with a swift swing.\n⚔️ Swords bite its iron plate twice as hard as arrows.\n🔔 The Belfry bell spoileth its aim a while.",
+              "sealed": false,
+              "underImage": false,
+              "words": 45,
+              "budget": 45
+            },
+            {
+              "heading": "Lore",
+              "body": "Spitebolts were built to guard the walls against wolves and worse. Nobody remembered to teach them who the friends were. They click when they are pleased. They are pleased far too often.",
+              "sealed": false,
+              "underImage": false,
+              "words": 32,
+              "budget": 45
+            }
+          ]
+        },
+        {
+          "kind": "foe",
+          "id": "ironback",
+          "order": 6,
+          "emoji": "⚔️",
+          "name": "Ironback",
+          "world": "cinderkeep",
+          "epithet": "the Shieldbearer",
+          "danger": 3,
+          "seal": "open",
+          "facts": {
+            "fellsIn": "6-8 blows · 3-4 to the gold back vent",
+            "where": "Cellars, the Gaol, halls; Pit from wave 4",
+            "tip": "One holdeth its eye; another striketh its back."
+          },
+          "sealed": false,
+          "plate": "pl_ironback",
+          "inset": "",
+          "vignette": "",
+          "image": "pl_ironback",
+          "alt": "A stout armoured dwarf behind a tall tower shield, turning; a small gold vent on its back.",
+          "sections": [
+            {
+              "heading": "How It Fighteth",
+              "body": "Its tower shield covereth its whole front, and it turneth slowly. It raiseth its mace for most of a breath, then bringeth it down. Hug its shield too long and it shoveth thee off.",
+              "sealed": false,
+              "underImage": false,
+              "words": 34,
+              "budget": 45
+            },
+            {
+              "heading": "How to Fell It",
+              "body": "🔄 Go round behind it. The small gold vent on its back taketh double.\n⚔️ Dodge the mace: a miss sticketh it in the floor, shield down. Strike the grille on its chest.\n♨️ Steam staggereth it.",
+              "sealed": false,
+              "underImage": false,
+              "words": 37,
+              "budget": 45
+            },
+            {
+              "heading": "Lore",
+              "body": "Ironbacks were the keep's door wardens. They carried their shields so long that they forgot how to set them down. Some still guard doors that are no longer there.",
+              "sealed": false,
+              "underImage": false,
+              "words": 29,
+              "budget": 45
+            }
+          ]
+        },
+        {
+          "kind": "foe",
+          "id": "hulker",
+          "order": 7,
+          "emoji": "⚔️",
+          "name": "Hulker",
+          "world": "cinderkeep",
+          "epithet": "the Brute",
+          "danger": 4,
+          "seal": "open",
+          "facts": {
+            "fellsIn": "20 back blows alone · 32 for four",
+            "where": "The Ashen Hall, Belfry, Boiler House; Pit wave 10",
+            "tip": "Seven quick blows together make it flinch."
+          },
+          "sealed": false,
+          "plate": "pl_hulker",
+          "inset": "",
+          "vignette": "",
+          "image": "pl_hulker",
+          "alt": "A huge stone-skinned brute stuck with its head down after a slam, its back firebox glowing.",
+          "sections": [
+            {
+              "heading": "How It Fighteth",
+              "body": "Big, slow and stone-skinned. It raiseth both fists while a ring spreadeth on the floor round it, and a breath later it slammeth. Close in front, it swipeth with one arm. It cannot be knocked back.",
+              "sealed": false,
+              "underImage": false,
+              "words": 36,
+              "budget": 45
+            },
+            {
+              "heading": "How to Fell It",
+              "body": "⭕ Step out of the ring before the slam.\n🎯 After a slam it is stuck, head down: arrows to the head bite thrice, swords twice.\n🔥 Its back grate taketh full harm; its hide but half.\n♨️ Steam it, then strike.",
+              "sealed": false,
+              "underImage": false,
+              "words": 42,
+              "budget": 45
+            },
+            {
+              "heading": "Lore",
+              "body": "Hulkers once hauled coal for the great ovens. Now the coal burneth inside them, and they are not cruel, only very, very cross. Offer one a seat and it will sit on thee.",
+              "sealed": false,
+              "underImage": false,
+              "words": 33,
+              "budget": 45
+            }
+          ]
+        },
+        {
+          "kind": "foe",
+          "id": "watchers",
+          "order": 8,
+          "emoji": "⚔️",
+          "name": "Watchers",
+          "world": "cinderkeep",
+          "epithet": "the Stone Knights",
+          "danger": 4,
+          "seal": "open",
+          "facts": {
+            "fellsIn": "Never. No weapon harmeth them.",
+            "where": "The Gallery of Kings only",
+            "tip": "Share them out: each bearer watcheth one."
+          },
+          "sealed": false,
+          "plate": "pl_watchers",
+          "inset": "",
+          "vignette": "",
+          "image": "pl_watchers",
+          "alt": "A stone knight frozen mid-step on a velvet runner; another in a niche behind with flaring eyes.",
+          "sections": [
+            {
+              "heading": "How It Fighteth",
+              "body": "A Watcher moveth only when no one looketh at it. Turn away and it glideth closer, stone grinding. Up close its eyes flare, then it striketh. Look at it during the flare and the blow is stopped.",
+              "sealed": false,
+              "underImage": false,
+              "words": 37,
+              "budget": 45
+            },
+            {
+              "heading": "How to Fell It",
+              "body": "👁️ Thou canst not fell it. Watch it instead.\n🔙 Walk backwards with thine eyes upon it.\n🤖 Alone, the Warden's gaze counteth too.\n➡️ Hurry on; they sleep again when the grille riseth.",
+              "sealed": false,
+              "underImage": false,
+              "words": 34,
+              "budget": 45
+            },
+            {
+              "heading": "Lore",
+              "body": "The Watchers are the old kings' knights, carved to keep the Gallery. Stone is shy, and hateth to be seen. The cinders made them bold, but no less shy.",
+              "sealed": false,
+              "underImage": false,
+              "words": 29,
+              "budget": 45
+            }
+          ]
+        },
+        {
+          "kind": "foe",
+          "id": "gilded",
+          "order": 9,
+          "emoji": "⚔️",
+          "name": "The Gilded",
+          "world": "cinderkeep",
+          "epithet": "the Elite Foes",
+          "danger": 4,
+          "seal": "open",
+          "facts": {
+            "fellsIn": "More blows than plain kin · gold bat: 2 hits",
+            "where": "The Gaol, the upper keep, and the Ember Pit",
+            "tip": "Gilded foes pay double coins. Worth the fuss."
+          },
+          "sealed": false,
+          "plate": "pl_gilded",
+          "inset": "",
+          "vignette": "",
+          "image": "pl_gilded",
+          "alt": "A gold-trimmed shield dwarf holding a ring of keys; a gold bat and a gold archer behind him.",
+          "sections": [
+            {
+              "heading": "How It Fighteth",
+              "body": "Gold-trimmed kin of the plain foes: tougher, quicker, and their warnings a little shorter. The gold bat spitteth two fireballs. The gold archer looseth three arrows in a fan. The gold turret shooteth flaming bolts.",
+              "sealed": false,
+              "underImage": false,
+              "words": 35,
+              "budget": 45
+            },
+            {
+              "heading": "How to Fell It",
+              "body": "🦇 The gold bat taketh exactly two hits; a headshot will not do. Steam toucheth it not.\n🏹 Step out of the middle of the archer's fan.\n🔑 Fell the Gaoler for the Gaol's ring key.\n❤️ A flaming bolt still costeth but one heart.",
+              "sealed": false,
+              "underImage": false,
+              "words": 45,
+              "budget": 45
+            },
+            {
+              "heading": "Lore",
+              "body": "Gilding is the Emberking's favour: a lick of gold for his proudest servants. It maketh them fierce, and vainer still. A gilded Ironback hath been seen polishing itself in the middle of a fight.",
+              "sealed": false,
+              "underImage": false,
+              "words": 34,
+              "budget": 45
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "greatfoes",
+      "order": 1,
+      "emoji": "👑",
+      "plaque": "II · Great Foes",
+      "title": "The Book of Great Foes",
+      "line": "Three great foes rule Cinderkeep. Read, if thou darest.",
+      "items": [
+        {
+          "kind": "page",
+          "id": "read-bosses",
+          "order": 0,
+          "emoji": "📖",
+          "name": "Of the Seals",
+          "world": "",
+          "sealed": false,
+          "plate": "",
+          "inset": "",
+          "vignette": "",
+          "image": "",
+          "alt": "",
+          "sections": [
+            {
+              "heading": "The Wax Seals",
+              "body": "🔏 A great foe's ways lie under a wax seal until thou hast met him. Break it whenever thou wilt: poke it twice. His plate and his tale are always open.",
+              "web": "🔏 In the hall, a great foe's ways lie under a wax seal until thou hast met him. Here they lie folded below his tale. Open the fold only if thou wouldst know.",
+              "sealed": false,
+              "underImage": false,
+              "words": 31,
+              "budget": 45
+            },
+            {
+              "heading": "The Great Foes",
+              "body": "❤️ A great foe's blow costeth one heart, like any other.\n🛡️ Each weareth armour that shrugs off plain blows. Find the way through it, and he falleth fast.\n👀 Each warneth before every blow.",
+              "sealed": false,
+              "underImage": false,
+              "words": 35,
+              "budget": 45
+            }
+          ]
+        },
+        {
+          "kind": "world",
+          "id": "cinderkeep",
+          "order": 1,
+          "emoji": "🔥",
+          "name": "Cinderkeep",
+          "colour": "#E8662A",
+          "line": "The masters of the cold hearth.",
+          "tailpiece": "tp_cinderkeep"
+        },
+        {
+          "kind": "boss",
+          "id": "anvilgrim",
+          "order": 2,
+          "emoji": "👑",
+          "name": "Anvilgrim",
+          "world": "cinderkeep",
+          "epithet": "the Iron-Hided Smith",
+          "danger": 4,
+          "seal": "met",
+          "facts": {
+            "fellsIn": "40 steamed blows alone · 70 for four",
+            "where": "The Anvil Pit in the Forge; Pit wave 15",
+            "tip": "One pulleth the lever; the rest strike."
+          },
+          "sealed": true,
+          "plate": "pl_anvilgrim",
+          "inset": "ins_anvil_steam",
+          "vignette": "",
+          "image": "pl_anvilgrim",
+          "alt": "A stout soot-smith in goggles and an iron helm, hammer raised high over a glowing anvil pit.",
+          "sections": [
+            {
+              "heading": "Lore",
+              "body": "Anvilgrim was the smith who forged the Emberking's crown. He hath been sorry ever since, and being sorry hath made him very cross. He guardeth his forge so nobody seeth him weep into the bellows.",
+              "sealed": false,
+              "underImage": false,
+              "words": 35,
+              "budget": 45
+            },
+            {
+              "heading": "His Armour",
+              "body": "🛡️ Iron hide: plain blows do a quarter.\n♨️ Steam him on a vent grate: he sitteth, glowing red, and blows bite full.",
+              "sealed": true,
+              "underImage": true,
+              "words": 23,
+              "budget": 25
+            },
+            {
+              "heading": "Blows and Tells",
+              "body": "🔨 Hammer high: a ring on the floor. Step out.\n✨ A scoop: three sparks in a fan. Shield them, or swat them.\n🐂 He paweth the floor, goggles flaring: the charge. Step aside; he standeth winded after.",
+              "sealed": true,
+              "underImage": false,
+              "words": 38,
+              "budget": 45
+            },
+            {
+              "heading": "Later Phases",
+              "body": "🔥 At half his strength he roareth. His blows quicken, and the hammer falleth twice.\n🦇 Cinderwings come once over the lava, and Cindershanks rise beside him.\n♨️ The vents refill a little faster.",
+              "sealed": true,
+              "underImage": false,
+              "words": 34,
+              "budget": 45
+            },
+            {
+              "heading": "How to Fell Him",
+              "body": "1️⃣ Draw him onto a vent grate.\n2️⃣ Pull the lever: the steam sitteth him down. His head taketh double.\n3️⃣ Strike while he gloweth red, about six breaths.\n🔥 The glowing grate on his back taketh double, steam or none.",
+              "sealed": true,
+              "underImage": false,
+              "words": 41,
+              "budget": 45
+            },
+            {
+              "heading": "In Fellowship",
+              "body": "⚙️ Name a lever-bearer for each vent. Call \"Now!\" when he standeth on the grate.\n🦇 In the second half, one bow taketh the bats.\n🐂 His charge striketh all near its path: spread out.",
+              "sealed": true,
+              "underImage": false,
+              "words": 35,
+              "budget": 45
+            },
+            {
+              "heading": "Hard and Alone",
+              "body": "🔥 On the Hard oath one blow felleth thee; his warnings are the same. Keep thy distance until he sitteth.\n🤖 Alone, the Warden calleth \"Now! The lever!\" when he standeth on a ready grate. The lever is thine to pull.",
+              "sealed": true,
+              "underImage": false,
+              "words": 41,
+              "budget": 45
+            }
+          ]
+        },
+        {
+          "kind": "boss",
+          "id": "firstking",
+          "order": 3,
+          "emoji": "👑",
+          "name": "The First King",
+          "world": "cinderkeep",
+          "epithet": "the Crowned Statue",
+          "danger": 5,
+          "seal": "met",
+          "facts": {
+            "fellsIn": "Break a knee, then strike his neck",
+            "where": "The Hall of the First King, past the Gallery",
+            "tip": "Strike only where he gloweth."
+          },
+          "sealed": true,
+          "plate": "pl_firstking",
+          "inset": "ins_king_kneel",
+          "vignette": "",
+          "image": "pl_firstking",
+          "alt": "A towering stone dwarf-king, crown ablaze, his cracked knees and elbows glowing with embers.",
+          "sections": [
+            {
+              "heading": "Lore",
+              "body": "He was the first Hearthkeeper, carved in stone with the shared flame held high. The cinders woke him with all the wrong ideas. Lay him low, and perhaps the stone shall rest and remember the flame.",
+              "sealed": false,
+              "underImage": false,
+              "words": 36,
+              "budget": 45
+            },
+            {
+              "heading": "His Armour",
+              "body": "🪨 Stone feeleth no blows.\n🔥 His knees and elbows glow while he striketh: hit them then. Break a knee and he kneeleth.",
+              "sealed": true,
+              "underImage": true,
+              "words": 23,
+              "budget": 25
+            },
+            {
+              "heading": "Blows and Tells",
+              "body": "✊ Arm high, a circle glowing: the slam. Step out.\n↔️ Arm drawn back, grinding: the sweep. Crouch low, or get behind.\n🦶 Knee lifted: the stomp. Hide behind a pillar or climb a stair.\n🪨 He lifteth rubble: shoot it twice, or step aside.",
+              "sealed": true,
+              "underImage": false,
+              "words": 45,
+              "budget": 45
+            },
+            {
+              "heading": "Later Phases",
+              "body": "🔥 At half his strength: \"The Ember King waketh!\" Fire creepeth through the floor.\n👑 He looketh at one bearer, crown brightening: a stream of fire followeth. Break his sight behind a pillar.\n🦇 Cinderwings drop from the dome.",
+              "sealed": true,
+              "underImage": false,
+              "words": 39,
+              "budget": 45
+            },
+            {
+              "heading": "How to Fell Him",
+              "body": "1️⃣ Strike a glowing knee. Arrows bite best.\n2️⃣ The knee breaketh: he kneeleth six breaths.\n3️⃣ Strike the back of his neck for double. Or jump onto his back (A) and strike the rune: triple.\n🦵 A broken limb falleth off for good.",
+              "sealed": true,
+              "underImage": false,
+              "words": 44,
+              "budget": 45
+            },
+            {
+              "heading": "In Fellowship",
+              "body": "🦘 While anyone standeth on his back, he moveth not, and kneeleth longer.\n🏛️ The balconies are safe from the sweep: archers, go up.\n🪨 Pillars break. Save them for the stomp and the fire.",
+              "sealed": true,
+              "underImage": false,
+              "words": 35,
+              "budget": 45
+            },
+            {
+              "heading": "Hard and Alone",
+              "body": "🔥 On the Hard oath, strike only in the pause between his blows, about two breaths.\n🛡️ Riders are always set down gently before he riseth.\n🏹 Alone, shoot the knees from a stair, then close in when he kneeleth.",
+              "sealed": true,
+              "underImage": false,
+              "words": 40,
+              "budget": 45
+            }
+          ]
+        },
+        {
+          "kind": "boss",
+          "id": "emberking",
+          "order": 4,
+          "emoji": "👑",
+          "name": "The Emberking",
+          "world": "cinderkeep",
+          "epithet": "Lord of the Cinders",
+          "danger": 5,
+          "seal": "met",
+          "facts": {
+            "fellsIn": "125 blows alone, 350 for four; crown double",
+            "where": "The Throne Dome, the keep's heart",
+            "tip": "Every bow on the crown when his hand riseth."
+          },
+          "sealed": true,
+          "plate": "pl_emberking",
+          "inset": "ins_ember_gutter",
+          "vignette": "",
+          "image": "pl_emberking",
+          "alt": "A tall crowned ember knight with a great sword, one hand raised, his crown blazing.",
+          "sections": [
+            {
+              "heading": "Lore",
+              "body": "The lore of Cinderkeep telleth how the king became the Emberking. This only: by the cold hearth he still keepeth an empty chair for travelers. Nobody hath sat in it for a hundred years. He would like someone to.",
+              "sealed": false,
+              "underImage": false,
+              "words": 39,
+              "budget": 45
+            },
+            {
+              "heading": "His Armour",
+              "body": "🔥 His mantle turneth plain blows to a fifth.\n🏹 Shoot the crown as his hand riseth: he gutters, and blows bite full.",
+              "sealed": true,
+              "underImage": true,
+              "words": 23,
+              "budget": 25
+            },
+            {
+              "heading": "Blows and Tells",
+              "body": "⚔️ Blade drawn back: the sweep, half a circle. Step out of reach.\n🗡️ Blade high: the cleave, a straight line. Step aside.\n✋ Hand raised: a volley of embers. Shield, parry, and shoot the crown!\n🔥 Later, ground flames: step aside.",
+              "sealed": true,
+              "underImage": false,
+              "words": 42,
+              "budget": 45
+            },
+            {
+              "heading": "Later Phases",
+              "body": "🔥 He roareth at two thirds and at one third.\n⚔️ Second: Cindershanks, turrets in the towers, ground flames.\n🌋 Last: the outer ring burneth (stay near him), meteors fall on marked circles, and his fury chaineth sweep into cleave, then he staggereth.",
+              "sealed": true,
+              "underImage": false,
+              "words": 43,
+              "budget": 45
+            },
+            {
+              "heading": "How to Fell Him",
+              "body": "1️⃣ Keep thy distance: he raiseth his hand when none is near.\n2️⃣ All bows on the crown. He staggereth, then gutters dull red for a few breaths.\n3️⃣ Close in. The crown taketh double.\n4️⃣ Back off when the glow returneth.",
+              "sealed": true,
+              "underImage": false,
+              "words": 42,
+              "budget": 45
+            },
+            {
+              "heading": "In Fellowship",
+              "body": "🏹 One bearer standeth far off to draw the volley; the rest shoot the crown.\n🏰 Silence the gallery archers early, then the towers' turrets.\n❤️ The Antechamber before him healeth all to full.",
+              "sealed": true,
+              "underImage": false,
+              "words": 34,
+              "budget": 45
+            },
+            {
+              "heading": "Hard and Alone",
+              "body": "🔥 On the Hard oath, stand back and let the volley come to thee. It is the safest window.\n🤖 Alone, the Warden calleth \"Hark! Shoot ye the crown!\" Its blows bite him but half: the crown is thine.",
+              "sealed": true,
+              "underImage": false,
+              "words": 39,
+              "budget": 45
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "handbook",
+      "order": 2,
+      "emoji": "🏮",
+      "plaque": "III · Handbook",
+      "title": "The Bearer's Handbook",
+      "line": "All a bearer ought to know, and a little more.",
+      "items": [
+        {
+          "kind": "topic",
+          "id": "hearts",
+          "order": 0,
+          "emoji": "❤️",
+          "name": "Hearts and Blows",
+          "world": "",
+          "sealed": false,
+          "plate": "",
+          "inset": "",
+          "vignette": "vg_hearts",
+          "image": "vg_hearts",
+          "alt": "Two red hearts on a bearer's wrist, one half-mended, beside an ember apple on a crate lid.",
+          "sections": [
+            {
+              "heading": "Caption",
+              "body": "❤️ Two hearts on the Normal oath, one on the Hard. Any blow from anything costeth one whole heart.",
+              "sealed": false,
+              "underImage": true,
+              "words": 19,
+              "budget": 25
+            },
+            {
+              "heading": "Hearts and Blows",
+              "body": "⏳ On the Normal oath hearts mend slowly once thou hast gone unhurt a while. Not in the Ember Pit.\n🍎 Ember apples from crates mend half a heart: bring one to thy mouth.\n🪨 A fall costeth a heart too.",
+              "sealed": false,
+              "underImage": false,
+              "words": 41,
+              "budget": 45
+            }
+          ]
+        },
+        {
+          "kind": "topic",
+          "id": "arms",
+          "order": 1,
+          "emoji": "⚔️",
+          "name": "The Three Arms",
+          "world": "",
+          "sealed": false,
+          "plate": "",
+          "inset": "",
+          "vignette": "vg_arms",
+          "image": "vg_arms",
+          "alt": "A sword, a round flame shield and a bow laid on an armory rack, the sword half drawn.",
+          "sections": [
+            {
+              "heading": "Caption",
+              "body": "⚔️ Cinderbrand, Hearthguard and Emberwing: sword, shield and bow. Grab with grip; each stayeth in hand until B or Y.",
+              "sealed": false,
+              "underImage": true,
+              "words": 20,
+              "budget": 25
+            },
+            {
+              "heading": "The Three Arms",
+              "body": "⚔️ Swing briskly: a lazy sword doth no harm.\n🛡️ Hold the shield between thee and the blow.\n🏹 Draw to the stop and let go: fuller flieth farther.\n🎒 Let go of a weapon behind thy shoulder to sling it on thy back.",
+              "sealed": false,
+              "underImage": false,
+              "words": 44,
+              "budget": 45
+            }
+          ]
+        },
+        {
+          "kind": "topic",
+          "id": "relics",
+          "order": 2,
+          "emoji": "🧰",
+          "name": "The Pit Relics",
+          "world": "",
+          "sealed": false,
+          "plate": "",
+          "inset": "",
+          "vignette": "vg_relics",
+          "image": "vg_relics",
+          "alt": "A glowing bow and a fiery glove resting on the Ember Pit's iron rack, heat shimmering off them.",
+          "sections": [
+            {
+              "heading": "Caption",
+              "body": "🧰 The Laser Bow and the Fireball Glove wait on the Ember Pit's Relic Rack after wave 5. One each.",
+              "sealed": false,
+              "underImage": true,
+              "words": 20,
+              "budget": 25
+            },
+            {
+              "heading": "The Pit Relics",
+              "body": "⏱️ Hold longer for a mightier shot; quick ones cost little heat.\n✊ The Glove: grip empty air to charge a fireball.\n♨️ Too hot and it venteth two breaths. Flick down or press A or X to vent early; the next shots charge faster.",
+              "sealed": false,
+              "underImage": false,
+              "words": 45,
+              "budget": 45
+            }
+          ]
+        },
+        {
+          "kind": "topic",
+          "id": "revive",
+          "order": 3,
+          "emoji": "👻",
+          "name": "Raising the Fallen",
+          "world": "",
+          "sealed": false,
+          "plate": "",
+          "inset": "",
+          "vignette": "vg_revive",
+          "image": "vg_revive",
+          "alt": "A bearer kneels with one mitt on a pale ghost's chest; gold motes rise between them.",
+          "sections": [
+            {
+              "heading": "Caption",
+              "body": "👻 A fallen bearer becometh a ghost. Hold thy hand on its chest three breaths to raise it.",
+              "sealed": false,
+              "underImage": true,
+              "words": 18,
+              "budget": 25
+            },
+            {
+              "heading": "Raising the Fallen",
+              "body": "🙌 Only bearers raise bearers. The ghost riseth with one heart, and thou earnest XP.\n💀 If every bearer in the fight is down at once, the whole quest endeth.\n💰 Thy coins spill as a pouch; lost, they wait where thou fellest.",
+              "sealed": false,
+              "underImage": false,
+              "words": 43,
+              "budget": 45
+            }
+          ]
+        },
+        {
+          "kind": "topic",
+          "id": "warden",
+          "order": 4,
+          "emoji": "🤖",
+          "name": "The Warden",
+          "world": "",
+          "sealed": false,
+          "plate": "",
+          "inset": "",
+          "vignette": "vg_warden",
+          "image": "vg_warden",
+          "alt": "A friendly clockwork knight with a lantern in its chest, sword raised beside a lone bearer.",
+          "sections": [
+            {
+              "heading": "Caption",
+              "body": "🤖 Alone, a Clockwork Warden goeth with thee. With two or more bearers, it stayeth home.",
+              "sealed": false,
+              "underImage": true,
+              "words": 16,
+              "budget": 25
+            },
+            {
+              "heading": "The Warden",
+              "body": "⚔️ It fighteth beside thee and helpeth with second levers, cranks and bellows. Its gaze holdeth Watchers.\n🙌 It never raiseth thee, and never pulleth Anvilgrim's levers.\n🛠️ If it falleth, raise it as thou wouldst a friend.\n🎨 Dress it at the Robing Board.",
+              "sealed": false,
+              "underImage": false,
+              "words": 45,
+              "budget": 45
+            }
+          ]
+        },
+        {
+          "kind": "topic",
+          "id": "oaths",
+          "order": 5,
+          "emoji": "⚖️",
+          "name": "The Oaths",
+          "world": "",
+          "sealed": false,
+          "plate": "",
+          "inset": "",
+          "vignette": "vg_oath",
+          "image": "vg_oath",
+          "alt": "A lever beside a stone platform, a pale candle on one side and a red flame on the other.",
+          "sections": [
+            {
+              "heading": "Caption",
+              "body": "⚖️ Choose thine oath at the Oath Lever beside the Armory stone. Pull it toward thee for Hard.",
+              "sealed": false,
+              "underImage": true,
+              "words": 18,
+              "budget": 25
+            },
+            {
+              "heading": "The Oaths",
+              "body": "🕯️ Normal: two hearts, and they mend.\n🔥 Hard: one blow felleth thee. The foes are the same; only thy hearts change.\n✨ Hard payeth half again in XP, a bonus on the win, the Ironheart Frame and a plaque in the Hall of Glories.",
+              "sealed": false,
+              "underImage": false,
+              "words": 45,
+              "budget": 45
+            }
+          ]
+        },
+        {
+          "kind": "topic",
+          "id": "steam",
+          "order": 6,
+          "emoji": "♨️",
+          "name": "Steam",
+          "world": "",
+          "sealed": false,
+          "plate": "",
+          "inset": "",
+          "vignette": "vg_vent",
+          "image": "vg_vent",
+          "alt": "An iron vent grate puffing white steam; a dwarf glows red in the cloud while a bearer steps aside.",
+          "sections": [
+            {
+              "heading": "Caption",
+              "body": "♨️ Scald vents are traps for thee. Lever vents are weapons against thy foes.",
+              "sealed": false,
+              "underImage": true,
+              "words": 14,
+              "budget": 25
+            },
+            {
+              "heading": "Steam",
+              "body": "♨️ When a vent's ring gloweth white and its lid rattleth, step aside. A safe lane is always open.\n🔴 A foe caught in steam gloweth red for six breaths and taketh half again as much harm. Ironbacks and Hulkers stagger.",
+              "sealed": false,
+              "underImage": false,
+              "words": 41,
+              "budget": 45
+            }
+          ]
+        },
+        {
+          "kind": "topic",
+          "id": "pit",
+          "order": 7,
+          "emoji": "🔥",
+          "name": "The Ember Pit",
+          "world": "",
+          "sealed": false,
+          "plate": "",
+          "inset": "",
+          "vignette": "vg_pit",
+          "image": "vg_pit",
+          "alt": "A round stone arena ringed with braziers, a brass bell on a post at its edge.",
+          "sections": [
+            {
+              "heading": "Caption",
+              "body": "🔥 Through the east door: waves of foes, one after another. Fifteen waves are free, and wave 15 is Anvilgrim.",
+              "sealed": false,
+              "underImage": true,
+              "words": 20,
+              "budget": 25
+            },
+            {
+              "heading": "The Ember Pit",
+              "body": "⏸️ Between waves the fallen stand, and the rest gain a heart.\n🔔 One ring shorteneth the wait; a second bearer's ring endeth it.\n❤️ No mending during a run.\n🏅 Bosses at waves 5, 10 and 15. Wave 10 earneth the Pit Tabard.",
+              "sealed": false,
+              "underImage": false,
+              "words": 44,
+              "budget": 45
+            }
+          ]
+        },
+        {
+          "kind": "topic",
+          "id": "pass",
+          "order": 8,
+          "emoji": "⭐",
+          "name": "The Lantern Pass",
+          "world": "",
+          "sealed": false,
+          "plate": "",
+          "inset": "",
+          "vignette": "vg_pass",
+          "image": "vg_pass",
+          "alt": "The carved Pass Board hung on the atrium's south wall, rows of reward tiles, one glowing gold.",
+          "sections": [
+            {
+              "heading": "Caption",
+              "body": "⭐ Every deed earneth XP. Each level up to 30 bringeth a boon from the free Lantern Pass.",
+              "sealed": false,
+              "underImage": true,
+              "words": 18,
+              "budget": 25
+            },
+            {
+              "heading": "The Lantern Pass",
+              "body": "🏮 Claim boons at the atrium's Pass Board.\n🎁 Frames, skins, hats, pets, stickers: looks only, never power.\n✨ Quests, chests, puzzles and revives pay XP. The first win of each day payeth most.\n👑 Past 30, every 6,000 XP is a Lanternlord star.",
+              "sealed": false,
+              "underImage": false,
+              "words": 44,
+              "budget": 45
+            }
+          ]
+        },
+        {
+          "kind": "topic",
+          "id": "fellowship",
+          "order": 9,
+          "emoji": "🤝",
+          "name": "In Fellowship",
+          "world": "",
+          "sealed": false,
+          "plate": "",
+          "inset": "",
+          "vignette": "vg_fellowship",
+          "image": "vg_fellowship",
+          "alt": "Four bearers on a round party stone under a gate arch, one waving another over.",
+          "sections": [
+            {
+              "heading": "Caption",
+              "body": "🤝 Up to four bearers share a quest or a Pit run. Gather on the party stone at the gate.",
+              "sealed": false,
+              "underImage": true,
+              "words": 20,
+              "budget": 25
+            },
+            {
+              "heading": "In Fellowship",
+              "body": "🗣️ Call out the tells: \"Ring!\", \"Bat!\", \"Charge!\"\n❤️ Raise the fallen first. A living friend is worth many blows.\n⚖️ Some foes grow tougher with more bearers, but so doth the fellowship.\n📋 The Fellowship Board findeth halls and friends.",
+              "sealed": false,
+              "underImage": false,
+              "words": 41,
+              "budget": 45
+            }
+          ]
+        },
+        {
+          "kind": "topic",
+          "id": "fairplay",
+          "order": 10,
+          "emoji": "⏳",
+          "name": "Fair Play: the Stones",
+          "world": "",
+          "sealed": false,
+          "plate": "",
+          "inset": "",
+          "vignette": "vg_stone",
+          "image": "vg_stone",
+          "alt": "A glowing stone platform with three bearers on it; a carved sign counts the time down.",
+          "sections": [
+            {
+              "heading": "Caption",
+              "body": "⏳ No bearer can hold a fellowship back. In a party, a stone that waiteth long enough bringeth everyone along.",
+              "sealed": false,
+              "underImage": true,
+              "words": 20,
+              "budget": 25
+            },
+            {
+              "heading": "Fair Play: the Stones",
+              "body": "🛡️ All but one on the stone: onward in thirty breaths. One of two: forty-five. Two of four: sixty. Fewer: it waiteth.\n⏳ Two still minutes, or headset off: thou art Away, and holdest no seat.\n⚙️ Levers and needles latch in time.",
+              "sealed": false,
+              "underImage": false,
+              "words": 43,
+              "budget": 45
+            }
+          ]
+        },
+        {
+          "kind": "topic",
+          "id": "fellowship-word",
+          "order": 11,
+          "emoji": "🗳️",
+          "name": "Fellowship's Word",
+          "world": "",
+          "sealed": false,
+          "plate": "",
+          "inset": "",
+          "vignette": "vg_ballot",
+          "image": "vg_ballot",
+          "alt": "A wrist panel showing a ballot with a thumbs-up and a thumbs-down button.",
+          "sections": [
+            {
+              "heading": "Caption",
+              "body": "🗳️ With three or more, ask the fellowship from a bearer's card. Aye or Nay on thy wrist; twenty breaths to answer.",
+              "sealed": false,
+              "underImage": true,
+              "words": 22,
+              "budget": 25
+            },
+            {
+              "heading": "Fellowship's Word",
+              "body": "🚪 Enough Ayes show a bearer the door for fifteen minutes. With two, part ways instead.\n🏮 The leader's way home is asked too.\n🗝️ Keys, seals and bell-weights held too long go home.\n👑 With a fellowship, the crown is called to its pedestal.",
+              "sealed": false,
+              "underImage": false,
+              "words": 45,
+              "budget": 45
+            }
+          ]
+        },
+        {
+          "kind": "topic",
+          "id": "safety",
+          "order": 12,
+          "emoji": "🛡️",
+          "name": "Keep the Hall Kind",
+          "world": "",
+          "sealed": false,
+          "plate": "",
+          "inset": "",
+          "vignette": "vg_safety",
+          "image": "vg_safety",
+          "alt": "A bearer card on a wrist panel with mute, block and report buttons, a door icon below.",
+          "sections": [
+            {
+              "heading": "Caption",
+              "body": "🛡️ Poke a bearer on thy Wayglass Fellowship tab or the Fellowship Board. Their card can mute, block or report them.",
+              "sealed": false,
+              "underImage": true,
+              "words": 21,
+              "budget": 25
+            },
+            {
+              "heading": "Keep the Hall Kind",
+              "body": "🔇 Mute husheth them for thee this journey.\n🚫 Block hideth their voice, plate and emotes for good.\n🚩 Report telleth the keepers. Thy reports wait on the Settings Book's Safety tab.\n🚪 A hall's host may Show the Door: fifteen minutes barred.",
+              "sealed": false,
+              "underImage": false,
+              "words": 43,
+              "budget": 45
+            }
+          ]
+        },
+        {
+          "kind": "topic",
+          "id": "controls",
+          "order": 13,
+          "emoji": "🎮",
+          "name": "The Controls",
+          "world": "",
+          "sealed": false,
+          "plate": "",
+          "inset": "",
+          "vignette": "vg_controls",
+          "image": "vg_controls",
+          "alt": "Two VR controllers drawn in ink, the grip, trigger, A and X buttons marked in gold.",
+          "sections": [
+            {
+              "heading": "Caption",
+              "body": "🎮 Grip grabbeth. Trigger looseth the bow. A jumpeth. Hold X for emotes. Practise in the Yard!",
+              "sealed": false,
+              "underImage": true,
+              "words": 17,
+              "budget": 25
+            },
+            {
+              "heading": "The Controls",
+              "body": "🏃 Click the left stick to sprint; click the right stick while running to slide.\n✋ Glance at thy left wrist for the Wayglass.\n📖 The left menu button openeth the Settings Book.\n☝️ Poke boards with a fingertip. Turn pages by their outer edge.",
+              "sealed": false,
+              "underImage": false,
+              "words": 45,
+              "budget": 45
+            }
+          ]
+        },
+        {
+          "kind": "topic",
+          "id": "wayglass",
+          "order": 14,
+          "emoji": "✋",
+          "name": "The Wayglass",
+          "world": "",
+          "sealed": false,
+          "plate": "",
+          "inset": "",
+          "vignette": "vg_wayglass",
+          "image": "vg_wayglass",
+          "alt": "A bearer's left wrist turned palm up, an amber glass panel open on it like a watch.",
+          "sections": [
+            {
+              "heading": "Caption",
+              "body": "✋ Glance at thy left wrist, palm up, as at a watch: the Wayglass openeth. Poke it with thy right finger.",
+              "sealed": false,
+              "underImage": true,
+              "words": 21,
+              "budget": 25
+            },
+            {
+              "heading": "The Wayglass",
+              "body": "📜 Notices: the last twenty, newest first.\n❤️ Thyself: hearts, level, purse and the next boon.\n🤝 Fellowship: thy mates, the way to the fallen, and each bearer's card.\n⚙️ Comfort and Journey: settings and the way home.\n🗳 Ballots wait here too.",
+              "sealed": false,
+              "underImage": false,
+              "words": 43,
+              "budget": 45
+            }
+          ]
+        },
+        {
+          "kind": "topic",
+          "id": "dial",
+          "order": 15,
+          "emoji": "👋",
+          "name": "The Herald's Dial",
+          "world": "",
+          "sealed": false,
+          "plate": "",
+          "inset": "",
+          "vignette": "vg_dial",
+          "image": "vg_dial",
+          "alt": "A round brass dial above a raised fist, eight wells of emotes, one fingertip poking a well.",
+          "sections": [
+            {
+              "heading": "Caption",
+              "body": "👋 Tap X for thy last emote. Hold X: the Herald's Dial riseth above thy left fist. Poke a word with thy right finger.",
+              "sealed": false,
+              "underImage": true,
+              "words": 24,
+              "budget": 25
+            },
+            {
+              "heading": "The Herald's Dial",
+              "body": "🎉 Thy emote or sticker showeth on a plaque above thy head, for all to see.\n🔒 Earn stickers from Pass levels and great deeds.\n🧥 Choose the dial's eight at the Robing Board's Emotes tab.\n⏳ One emote each two breaths.",
+              "sealed": false,
+              "underImage": false,
+              "words": 42,
+              "budget": 45
+            }
+          ]
+        },
+        {
+          "kind": "topic",
+          "id": "nameplates",
+          "order": 16,
+          "emoji": "⭐",
+          "name": "Name Plates",
+          "world": "",
+          "sealed": false,
+          "plate": "",
+          "inset": "",
+          "vignette": "vg_nameplate",
+          "image": "vg_nameplate",
+          "alt": "A small carved board with a star, a level and a name, set above a bearer's head.",
+          "sections": [
+            {
+              "heading": "Caption",
+              "body": "⭐ Every bearer's name and level ride on a carved plate above their head, framed by their Pass frame.",
+              "sealed": false,
+              "underImage": true,
+              "words": 19,
+              "budget": 25
+            },
+            {
+              "heading": "Name Plates",
+              "body": "⭐ The star showeth their level; past 30, Lanternlord stars.\n👋 It tucketh away while their emote is up.\n🔇 A mark showeth whom thou hast hushed.\n✨ Thine own showeth only in the Looking Glass.\n⚙️ Names over Heads off leaveth only the level.",
+              "sealed": false,
+              "underImage": false,
+              "words": 45,
+              "budget": 45
+            }
+          ]
+        },
+        {
+          "kind": "topic",
+          "id": "crier",
+          "order": 17,
+          "emoji": "📜",
+          "name": "The Crier's Board",
+          "world": "",
+          "sealed": false,
+          "plate": "",
+          "inset": "",
+          "vignette": "vg_crier",
+          "image": "vg_crier",
+          "alt": "A cork board headed TIDINGS OF THE HALL, parchment notices pinned on and one red-sealed slip.",
+          "sections": [
+            {
+              "heading": "Caption",
+              "body": "📜 Tidings of the hall are pinned on the Crier's Board, on the atrium's west wall.",
+              "sealed": false,
+              "underImage": true,
+              "words": 16,
+              "budget": 25
+            },
+            {
+              "heading": "The Crier's Board",
+              "body": "🏮 The Lamplighter pinneth the hall's news there.\n📜 New tidings greet thee once on thy wrist.\n⚙️ A red-sealed slip telleth when a newer version waiteth in thy Quest library.",
+              "sealed": false,
+              "underImage": false,
+              "words": 31,
+              "budget": 45
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "pictures": [
+    {
+      "id": "ins_anvil_steam",
+      "kind": "inset",
+      "art": true,
+      "file": "Lanternhall/Assets/Lanternhall/Art/Textures/Guide/ins_anvil_steam.png"
+    },
+    {
+      "id": "ins_ember_gutter",
+      "kind": "inset",
+      "art": true,
+      "file": "Lanternhall/Assets/Lanternhall/Art/Textures/Guide/ins_ember_gutter.png"
+    },
+    {
+      "id": "ins_king_kneel",
+      "kind": "inset",
+      "art": true,
+      "file": "Lanternhall/Assets/Lanternhall/Art/Textures/Guide/ins_king_kneel.png"
+    },
+    {
+      "id": "pl_anvilgrim",
+      "kind": "plate",
+      "art": true,
+      "file": "Lanternhall/Assets/Lanternhall/Art/Textures/Guide/pl_anvilgrim.png"
+    },
+    {
+      "id": "pl_cindershank",
+      "kind": "plate",
+      "art": true,
+      "file": "Lanternhall/Assets/Lanternhall/Art/Textures/Guide/pl_cindershank.png"
+    },
+    {
+      "id": "pl_cinderwing",
+      "kind": "plate",
+      "art": true,
+      "file": "Lanternhall/Assets/Lanternhall/Art/Textures/Guide/pl_cinderwing.png"
+    },
+    {
+      "id": "pl_emberking",
+      "kind": "plate",
+      "art": true,
+      "file": "Lanternhall/Assets/Lanternhall/Art/Textures/Guide/pl_emberking.png"
+    },
+    {
+      "id": "pl_firstking",
+      "kind": "plate",
+      "art": true,
+      "file": "Lanternhall/Assets/Lanternhall/Art/Textures/Guide/pl_firstking.png"
+    },
+    {
+      "id": "pl_gilded",
+      "kind": "plate",
+      "art": true,
+      "file": "Lanternhall/Assets/Lanternhall/Art/Textures/Guide/pl_gilded.png"
+    },
+    {
+      "id": "pl_hulker",
+      "kind": "plate",
+      "art": true,
+      "file": "Lanternhall/Assets/Lanternhall/Art/Textures/Guide/pl_hulker.png"
+    },
+    {
+      "id": "pl_ironback",
+      "kind": "plate",
+      "art": true,
+      "file": "Lanternhall/Assets/Lanternhall/Art/Textures/Guide/pl_ironback.png"
+    },
+    {
+      "id": "pl_spitebolt",
+      "kind": "plate",
+      "art": true,
+      "file": "Lanternhall/Assets/Lanternhall/Art/Textures/Guide/pl_spitebolt.png"
+    },
+    {
+      "id": "pl_thornshot",
+      "kind": "plate",
+      "art": true,
+      "file": "Lanternhall/Assets/Lanternhall/Art/Textures/Guide/pl_thornshot.png"
+    },
+    {
+      "id": "pl_watchers",
+      "kind": "plate",
+      "art": true,
+      "file": "Lanternhall/Assets/Lanternhall/Art/Textures/Guide/pl_watchers.png"
+    },
+    {
+      "id": "tp_cinderkeep",
+      "kind": "tailpiece",
+      "art": true,
+      "file": "Lanternhall/Assets/Lanternhall/Art/Textures/Guide/tp_cinderkeep.png"
+    },
+    {
+      "id": "vg_arms",
+      "kind": "vignette",
+      "art": true,
+      "file": "Lanternhall/Assets/Lanternhall/Art/Textures/Guide/vg_arms.png"
+    },
+    {
+      "id": "vg_ballot",
+      "kind": "vignette",
+      "art": true,
+      "file": "Lanternhall/Assets/Lanternhall/Art/Textures/Guide/vg_ballot.png"
+    },
+    {
+      "id": "vg_controls",
+      "kind": "vignette",
+      "art": true,
+      "file": "Lanternhall/Assets/Lanternhall/Art/Textures/Guide/vg_controls.png"
+    },
+    {
+      "id": "vg_crier",
+      "kind": "vignette",
+      "art": true,
+      "file": "Lanternhall/Assets/Lanternhall/Art/Textures/Guide/vg_crier.png"
+    },
+    {
+      "id": "vg_dial",
+      "kind": "vignette",
+      "art": true,
+      "file": "Lanternhall/Assets/Lanternhall/Art/Textures/Guide/vg_dial.png"
+    },
+    {
+      "id": "vg_fellowship",
+      "kind": "vignette",
+      "art": true,
+      "file": "Lanternhall/Assets/Lanternhall/Art/Textures/Guide/vg_fellowship.png"
+    },
+    {
+      "id": "vg_hearts",
+      "kind": "vignette",
+      "art": true,
+      "file": "Lanternhall/Assets/Lanternhall/Art/Textures/Guide/vg_hearts.png"
+    },
+    {
+      "id": "vg_nameplate",
+      "kind": "vignette",
+      "art": true,
+      "file": "Lanternhall/Assets/Lanternhall/Art/Textures/Guide/vg_nameplate.png"
+    },
+    {
+      "id": "vg_oath",
+      "kind": "vignette",
+      "art": true,
+      "file": "Lanternhall/Assets/Lanternhall/Art/Textures/Guide/vg_oath.png"
+    },
+    {
+      "id": "vg_pass",
+      "kind": "vignette",
+      "art": true,
+      "file": "Lanternhall/Assets/Lanternhall/Art/Textures/Guide/vg_pass.png"
+    },
+    {
+      "id": "vg_pit",
+      "kind": "vignette",
+      "art": true,
+      "file": "Lanternhall/Assets/Lanternhall/Art/Textures/Guide/vg_pit.png"
+    },
+    {
+      "id": "vg_relics",
+      "kind": "vignette",
+      "art": true,
+      "file": "Lanternhall/Assets/Lanternhall/Art/Textures/Guide/vg_relics.png"
+    },
+    {
+      "id": "vg_revive",
+      "kind": "vignette",
+      "art": true,
+      "file": "Lanternhall/Assets/Lanternhall/Art/Textures/Guide/vg_revive.png"
+    },
+    {
+      "id": "vg_safety",
+      "kind": "vignette",
+      "art": true,
+      "file": "Lanternhall/Assets/Lanternhall/Art/Textures/Guide/vg_safety.png"
+    },
+    {
+      "id": "vg_stone",
+      "kind": "vignette",
+      "art": true,
+      "file": "Lanternhall/Assets/Lanternhall/Art/Textures/Guide/vg_stone.png"
+    },
+    {
+      "id": "vg_vent",
+      "kind": "vignette",
+      "art": true,
+      "file": "Lanternhall/Assets/Lanternhall/Art/Textures/Guide/vg_vent.png"
+    },
+    {
+      "id": "vg_warden",
+      "kind": "vignette",
+      "art": true,
+      "file": "Lanternhall/Assets/Lanternhall/Art/Textures/Guide/vg_warden.png"
+    },
+    {
+      "id": "vg_wayglass",
+      "kind": "vignette",
+      "art": true,
+      "file": "Lanternhall/Assets/Lanternhall/Art/Textures/Guide/vg_wayglass.png"
+    }
+  ],
+  "warnings": []
+}

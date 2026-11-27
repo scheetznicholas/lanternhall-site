@@ -1,0 +1,15 @@
+{
+ "_about": "Player-facing notes for the Roblox version, one entry per version, written for the site (not copied from the dev changelog). roblox_import.py joins them with the Roblox repo's docs/releases.json into roblox/releases.json. Keep them short: no file names, ids, place versions, tests or tools.",
+ "notes": {
+  "0.66.3": {"bullets": ["On small screens, the action prompts are slim pills that stay out of the way, and the Lamplighter's speech bubble is smaller"]},
+  "0.66.2": {"bullets": ["Messages stay on screen longer, the longest ones longest, and so do the Lamplighter's words", "The Crier's Board page-turn prompt now sits below the board, so it no longer covers the notices"]},
+  "0.66.1": {"bullets": ["Your sword rests low at your side, and your left hand holds the raised shield"]},
+  "0.66.0": {"bullets": ["Sword combos now cut an X", "The Fireball Glove hand rests at your side until you start charging"]},
+  "0.65.1": {"bullets": ["The Lamplighter now looks just as he does in the VR game"]},
+  "0.65.0": {"title": "The Lamplighter", "bullets": ["Meet the Lamplighter at his desk in Lanternhall. He speaks in speech bubbles"]},
+  "0.64.3": {"bullets": ["The Crier's Board pages through all of the hall's current news, not just the newest notice"]},
+  "0.64.2": {"title": "Badges", "bullets": ["Five free badges to earn: Triumph!, Ironheart!, None fell!, Kingbreaker! and Hammer down!"]},
+  "0.64.1": {"bullets": ["Credits are in the Comfort tab"]},
+  "0.64.0": {"title": "Fair Play", "bullets": ["Party stones no longer wait forever: once most of the party is on, a short countdown brings everyone along", "Step away from the game and you're marked Away, so the rest of the party can carry on", "The fellowship can vote to head home together, or to part ways with a bearer who's spoiling the fun", "Keys, seals and bell-weights can't be hoarded: held too long, they slip back where they belong"]}
+ }
+}
