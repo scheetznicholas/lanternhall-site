@@ -7,6 +7,7 @@ FONTS = ('<link rel="preconnect" href="https://fonts.googleapis.com">'
 YT = "https://www.youtube.com/@LanternhallGames"
 TWITCH = "https://www.twitch.tv/lanternhall"
 X_URL = "https://x.com/lanternhallvr"
+INSTAGRAM = "https://www.instagram.com/lanternhallvr/"
 MAIL = "support@lanternhallvr.com"
 # The legal pages' source note (an HTML comment, never shown). Drop it once an attorney has reviewed them.
 DRAFT_NOTE = "Draft reviewed by Claude, pending attorney review."
@@ -89,7 +90,7 @@ VERSION = (f'<a class="ver" href="updates.html">v{LATEST["version"]} {LATEST.get
 
 FOOT = f"""<footer><div class="foot-in">
 <span>&copy; 2026 Nicholas Scheetz, d/b/a Lanternhall Games. Lanternhall&trade;</span>{VERSION}
-<nav><a href="support.html">Support</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="{YT}" aria-label="Lanternhall on YouTube">YouTube</a><a href="{TWITCH}" aria-label="Lanternhall on Twitch">Twitch</a><a href="{X_URL}" aria-label="Lanternhall on X">X</a><a href="mailto:{MAIL}">{MAIL}</a></nav>
+<nav><a href="support.html">Support</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="{YT}" aria-label="Lanternhall on YouTube">YouTube</a><a href="{TWITCH}" aria-label="Lanternhall on Twitch">Twitch</a><a href="{X_URL}" aria-label="Lanternhall on X">X</a><a href="{INSTAGRAM}" aria-label="Lanternhall on Instagram">Instagram</a><a href="mailto:{MAIL}">{MAIL}</a></nav>
 </div></footer>
 </body></html>
 """
