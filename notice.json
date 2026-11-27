@@ -3,15 +3,25 @@
  "updated": "2026-11-26T06:01:06Z",
  "latest": {
   "Beta": {
-   "version": "0.19.0",
-   "code": 1900
+   "version": "0.20.0",
+   "code": 2000
   },
   "Alpha": {
-   "version": "0.19.0",
-   "code": 1901
+   "version": "0.20.0",
+   "code": 2001
   }
  },
  "notices": [
+  {
+   "id": "fair-play",
+   "title": "Fair play",
+   "text": "Stones no longer wait forever, idle bearers step aside, and the fellowship can vote. Read it all in the Wayglass under What's new.",
+   "until": "2026-12-04T00:00:00Z",
+   "wrist": "once",
+   "channels": [
+    "Roblox"
+   ]
+  },
   {
    "id": "notice-1125",
    "title": "Hear ye!",
