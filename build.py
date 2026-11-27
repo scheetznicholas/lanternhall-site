@@ -234,8 +234,8 @@ every few minutes while you play. Nothing about you is sent with it beyond what 
 address, seen by GitHub Pages, which hosts this site). Offline, it is skipped.</li>
 <li><b>Engine data.</b> Unity Analytics and Unity's cloud crash reporting are turned off in the game. The Unity engine itself
 may still send Unity basic anonymous technical data, such as your device's hardware details.</li>
-<li><b>Meta.</b> The game is sold through the Meta Horizon Store, so Meta's terms and privacy policy cover your Meta account,
-your purchase and the store. The game doesn't use Meta's platform features yet. When we add them (checking that you own the
+<li><b>Meta.</b> The game is distributed through the Meta Horizon Store, so Meta's terms and privacy policy cover your Meta account,
+anything you get from the store and the store itself. The game doesn't use Meta's platform features yet. When we add them (checking that you own the
 game or an add-on, buying add-ons, achievements), Meta will share your Meta user ID and what you own or have unlocked with the
 game so those features work, and we will update this policy.</li>
 </ul>
@@ -248,8 +248,8 @@ user ID, username and display name from Roblox. We never see your email, phone n
 cosmetics, settings, your emote wheel, your best times and last five victories (with the display names of that party), weekly
 deeds, which badges and one-time notices you've had, and the purchase IDs of shop items already given to you (so a purchase
 is never granted twice).</li>
-<li><b>Leaderboards.</b> The hub's boards (the Swiftest Fellowships, the Ember Pit ladder and the Weekly Pit Trial) keep the
-display names and Roblox user IDs of the players on each row, with the time or wave reached and the date. Other players can see
+<li><b>Leaderboards.</b> The Ember Pit ladder and the Weekly Pit Trial keep the display names and Roblox user IDs of the players
+on each row, with the wave reached and the date. The Swiftest Fellowships board keeps only the display names, the time and the date. Other players can see
 the names. A row stays until faster runs push it off the board; each week's Trial board is kept so its top players can be given
 their reward.</li>
 <li><b>Halls.</b> While a hall is open, its name (such as "Ana's Hall"), code, player count and game version are listed in
@@ -262,8 +262,9 @@ from the server.</li>
 <li><b>The letterbox.</b> If you write to us with the in-game letterbox ("Word to the Makers"), your words first pass through
 Roblox's text filter. We receive the filtered words, the kind of letter (bug, idea or other), the game and place version, the
 server ID, where in the game you were, the kind of hall, how many players were there, and your device type (touch, gamepad or
-keyboard) and screen size. A letter carries only a pseudonymous tag for you: a one-way hash of your Roblox user ID that lets us
-group one player's letters but can't be turned back into your user ID or profile. Letters travel through our relay on
+keyboard) and screen size. A letter carries only a pseudonymous tag for you: a keyed hash of your Roblox user ID that lets us
+group one player's letters. Without our secret key the tag can't be turned back into your user ID, but we can work out the tag
+from a user ID we already have (that is how we find a player's letters to delete them), so it is pseudonymous, not anonymous. Letters travel through our relay on
 Cloudflare and are kept as items in a private GitHub repository, with a short alert in a private Discord channel. If GitHub is
 unavailable, the letter goes to that Discord channel and to our email (sent with Resend) instead. Letters are deleted after
 12 months.</li>
