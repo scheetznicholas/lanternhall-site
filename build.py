@@ -6,6 +6,8 @@ FONTS = ('<link rel="preconnect" href="https://fonts.googleapis.com">'
          'family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">')
 YT = "https://www.youtube.com/@LanternhallGames"
 MAIL = "support@lanternhallvr.com"
+# The legal pages' source note (an HTML comment, never shown). Drop it once an attorney has reviewed them.
+DRAFT_NOTE = "Draft reviewed by Claude, pending attorney review."
 # The Roblox place's public link. None until the place is public: the home page's Roblox card then shows only its badge.
 # Set it to the place URL and the card gains a "Play on Roblox" button.
 ROBLOX_URL = None
@@ -55,12 +57,13 @@ def load_roblox():
 ROBLOX_RELEASES = load_roblox()
 
 
-def head(title, desc, page, og_image="assets/hero.jpg", bar=""):
-    """`bar`: extra markup inside the sticky header, under the links (the guide's book bar)."""
+def head(title, desc, page, og_image="assets/hero.jpg", bar="", note=""):
+    """`bar`: extra markup inside the sticky header, under the links (the guide's book bar).
+    `note`: an HTML comment put just under the doctype (never shown)."""
     nav = [("index.html", "Home"), ("guide.html", "Guide"), ("updates.html", "Updates"), ("support.html", "Support"), ("privacy.html", "Privacy")]
     links = "".join(f'<a href="{h}"{" aria-current=\"page\"" if h == page else ""}>{t}</a>' for h, t in nav)
     return f"""<!DOCTYPE html>
-<html lang="en"><head><meta charset="utf-8">
+{f"<!-- {note} -->" + chr(10) if note else ""}<html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{title}</title>
 <meta name="description" content="{desc}">
@@ -74,7 +77,7 @@ def head(title, desc, page, og_image="assets/hero.jpg", bar=""):
 <link rel="stylesheet" href="style.css">
 </head><body>
 <header class="nav"><div class="nav-in">
-<a class="brand" href="index.html"><img src="assets/favicon.png" alt="">Lanternhall</a>
+<a class="brand" href="index.html"><img src="assets/favicon.png" alt="">Lanternhall&trade;</a>
 <nav class="nav-links">{links}</nav>
 </div>{bar}</header>
 """
@@ -83,8 +86,8 @@ def head(title, desc, page, og_image="assets/hero.jpg", bar=""):
 VERSION = (f'<a class="ver" href="updates.html">v{LATEST["version"]} {LATEST.get("channel", "")} &middot; Release notes</a>' if LATEST else "")
 
 FOOT = f"""<footer><div class="foot-in">
-<span>&copy; 2026 Lanternhall Games</span>{VERSION}
-<nav><a href="support.html">Support</a><a href="privacy.html">Privacy</a><a href="{YT}">YouTube</a><a href="mailto:{MAIL}">{MAIL}</a></nav>
+<span>&copy; 2026 Nicholas Scheetz, d/b/a Lanternhall Games. Lanternhall&trade;</span>{VERSION}
+<nav><a href="support.html">Support</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="{YT}">YouTube</a><a href="mailto:{MAIL}">{MAIL}</a></nav>
 </div></footer>
 </body></html>
 """
@@ -181,66 +184,283 @@ Please don't post reports in public channels. Meta's own reporting tools on your
 </main>
 """ + FOOT
 
-PRIVACY = head("Privacy Policy: Lanternhall", "How Lanternhall handles your information.", "privacy.html") + f"""
+PRIVACY = head("Privacy Policy: Lanternhall", "How Lanternhall handles your information, on Meta Quest, on Roblox and on this website.",
+               "privacy.html", note=DRAFT_NOTE) + f"""
 <main class="doc">
 <h1>Privacy Policy</h1>
-<p class="meta">Lanternhall, by Lanternhall Games &middot; Effective November 2026 &middot; Updated with version 0.19.0 (reports, hall news)</p>
+<p class="meta">Lanternhall &middot; Effective November 27, 2026</p>
 
-<p>This policy explains what information Lanternhall (the VR game for Meta Quest) uses, why, and who handles it.
-We keep it short because we collect very little. Questions: <a href="mailto:{MAIL}">{MAIL}</a>.</p>
+<p>This policy covers Lanternhall on Meta Quest (VR), Lanternhall on Roblox, this website (lanternhallvr.com) and our support
+email. It explains what information we handle, why, who else handles it, how long we keep it and what you can do about it.
+We keep it short because we collect very little.</p>
 
-<h2>What we don't do</h2>
+<h2>Who we are</h2>
+<p>Lanternhall is made and run by Nicholas Scheetz, doing business as Lanternhall Games ("we" or "us"). We are responsible
+for the information described here. Contact: <a href="mailto:{MAIL}">{MAIL}</a>.</p>
+
+<h2>The short version</h2>
 <ul>
-<li>No ads, and no selling or renting of your information.</li>
-<li>No accounts or passwords with us. We never ask for your real name, address or payment details.</li>
-<li>We don't record your voice chat.</li>
+<li>No ads. We never sell your information or share it for advertising.</li>
+<li>No accounts or passwords with us. We never ask for your real name, address, birthday or payment details.
+Purchases are handled by the platform (Roblox or Meta).</li>
+<li>We don't record voice chat.</li>
+<li>What we keep is mostly game progress, tied to your platform's player ID or a random one.</li>
 </ul>
 
-<h2>Information the game uses</h2>
+<h2>Lanternhall on Meta Quest (VR)</h2>
 <ul>
 <li><b>Player name.</b> The name you choose in the game is shown to other players in the same hall or quest.
 Names are filtered for offensive words.</li>
 <li><b>Anonymous player ID.</b> To play online, the game signs in anonymously to Unity Gaming Services, which gives your
-copy of the game a random player ID. It is not linked to your name or Meta account by us.</li>
+copy of the game a random player ID. We don't link it to your name or your Meta account.</li>
 <li><b>Multiplayer connection data.</b> When you join a hall or quest, Unity's multiplayer services (Lobby, Relay and
-Distributed Authority) process connection details such as your IP address, session codes and the in-game state
-(positions, actions) needed to keep players in sync.</li>
-<li><b>Voice chat.</b> If you allow microphone access, your voice is sent live to the other players in your hall or
-party through Unity's Vivox service. You can deny the microphone and still play.</li>
-<li><b>On your headset.</b> Your progress, unlocks, avatar look and settings are stored only on your headset. The game also keeps a
-small technical log on the headset to help diagnose connection problems. It is not uploaded.</li>
-<li><b>Player reports.</b> If you report a player, the report holds the reason you chose, the time, the game version, where it
-happened (hub, quest or Pit, and the hall code and session), how many players were there, and the in-game name and anonymous
-player ID of you and of the player you reported. It never holds voice recordings or anything about the other players. It is kept on
-your headset; it is sent to us through Unity's Moderation service when that is available, or only if you send it yourself
-(the report page decodes it in your browser: it is not sent to our website).</li>
-<li><b>Hall news.</b> The game reads a small public notice file (<code>notice.json</code>) from this website when it starts and every
-few minutes while you play, to show news on the Crier's Board and tell you when a new version is out. Nothing about you is sent
-with that request beyond what any web request carries (such as your IP address, handled by GitHub Pages). Offline, it is skipped.</li>
-<li><b>Crash and diagnostic data.</b> The Unity engine may send anonymous crash and performance diagnostics to Unity to help
-fix bugs.</li>
+Distributed Authority) process connection details such as your IP address, hall codes and session details, and the in-game
+state (positions, actions) needed to keep players in sync.</li>
+<li><b>Voice chat.</b> If you allow microphone access, your voice is sent live to the other players in your hall or party
+through Unity's Vivox service. We don't record it. You can deny the microphone and still play.</li>
+<li><b>On your headset.</b> Your progress, unlocks, avatar look, settings and records are stored only on your headset.
+The game also keeps a small technical log there to help diagnose connection problems. It is not uploaded.</li>
+<li><b>Player reports.</b> A report holds the reason you chose, the time, the game version, where it happened (hub, quest or
+Pit, the hall code and session), how many players were there, and the in-game name and anonymous player ID of you and of the
+player you reported. It never holds voice recordings. The full report is kept on your headset. Where available, the game also
+files it with Unity's Moderation service, which receives only your anonymous player ID, the reported player's anonymous player
+ID and the reason. The full report reaches us only if you send it yourself, by email or as a direct message to a moderator
+(the report page on this website reads it in your browser and does not send it anywhere).</li>
+<li><b>Hall news.</b> The game reads a small public notice file (<code>notice.json</code>) from this website when it starts and
+every few minutes while you play. Nothing about you is sent with it beyond what any web request carries (such as your IP
+address, seen by GitHub Pages, which hosts this site). Offline, it is skipped.</li>
+<li><b>Engine data.</b> Unity Analytics and Unity's cloud crash reporting are turned off in the game. The Unity engine itself
+may still send Unity basic anonymous technical data, such as your device's hardware details.</li>
+<li><b>Meta.</b> The game is sold through the Meta Horizon Store, so Meta's terms and privacy policy cover your Meta account,
+your purchase and the store. The game doesn't use Meta's platform features yet. When we add them (checking that you own the
+game or an add-on, buying add-ons, achievements), Meta will share your Meta user ID and what you own or have unlocked with the
+game so those features work, and we will update this policy.</li>
 </ul>
+
+<h2>Lanternhall on Roblox</h2>
+<ul>
+<li><b>Your Roblox account.</b> You play with your Roblox account. Like every Roblox experience, the game receives your Roblox
+user ID, username and display name from Roblox. We never see your email, phone number, birthday, password or payment details.</li>
+<li><b>Your save.</b> Kept in Roblox's own storage (DataStores) under your Roblox user ID: coins, XP and level, unlocks and
+cosmetics, settings, your emote wheel, your best times and last five victories (with the display names of that party), weekly
+deeds, which badges and one-time notices you've had, and the purchase IDs of shop items already given to you (so a purchase
+is never granted twice).</li>
+<li><b>Leaderboards.</b> The hub's boards (the Swiftest Fellowships, the Ember Pit ladder and the Weekly Pit Trial) keep the
+display names and Roblox user IDs of the players on each row, with the time or wave reached and the date. Other players can see
+the names. A row stays until faster runs push it off the board; each week's Trial board is kept so its top players can be given
+their reward.</li>
+<li><b>Halls.</b> While a hall is open, its name (such as "Ana's Hall"), code, player count and game version are listed in
+Roblox's temporary storage (MemoryStore) so others can find it. The listing expires soon after the hall closes.</li>
+<li><b>Chat, voice, blocking and reporting.</b> Text chat, voice chat (where Roblox allows it), blocking and reporting are
+Roblox's own features, run by Roblox under its rules. The game reads your Roblox block list only to hide blocked players'
+names from you.</li>
+<li><b>Kicks and bans.</b> Bans use Roblox's own ban system: Roblox stores the ban and its reason. A kick just removes a player
+from the server.</li>
+<li><b>The letterbox.</b> If you write to us with the in-game letterbox ("Word to the Makers"), your words first pass through
+Roblox's text filter. We receive the filtered words, the kind of letter (bug, idea or other), the game and place version, the
+server ID, where in the game you were, the kind of hall, how many players were there, and your device type (touch, gamepad or
+keyboard) and screen size. A letter carries only a pseudonymous tag for you: a one-way hash of your Roblox user ID that lets us
+group one player's letters but can't be turned back into your user ID or profile. Letters travel through our relay on
+Cloudflare and are kept as items in a private GitHub repository, with a short alert in a private Discord channel. If GitHub is
+unavailable, the letter goes to that Discord channel and to our email (sent with Resend) instead. Letters are deleted after
+12 months.</li>
+<li><b>Analytics.</b> We use Roblox's built-in analytics to see how the game is going: how far Ember Pit runs get and how they
+end (the mode and party size), and which steps of the first-time tutorial new players reach. Roblox processes this and shows us
+the results in its Creator Dashboard. Test runs are not counted.</li>
+<li><b>Badges and purchases.</b> Badges are awarded through Roblox. Game passes and items in the Lantern Shop are bought with
+Robux through Roblox, which handles the payment and tells the game what you bought.</li>
+<li><b>Hall news.</b> The game's servers read the same public notice file from this website. Nothing about you is sent.</li>
+</ul>
+
+<h2>This website</h2>
+<ul>
+<li>This site is hosted by GitHub Pages. Like any web host, GitHub receives your IP address and browser details when you
+visit, and may keep them in its logs.</li>
+<li>The site's lettering comes from Google Fonts, so your browser also asks Google's servers for it, which sends Google your IP
+address and browser details.</li>
+<li>Our domain's DNS is provided by Cloudflare.</li>
+<li>We use no cookies, no analytics and no trackers of our own on this site.</li>
+<li>Links to YouTube, Discord, Roblox and Meta take you to their sites, where their own privacy policies apply.</li>
+</ul>
+
+<h2>Support email</h2>
+<p>Mail to <a href="mailto:{MAIL}">{MAIL}</a> is received by Cloudflare Email Routing and delivered to our inbox, which Google
+(Gmail) hosts. Our replies are sent through Resend. We keep what you send us (your address, your message and anything attached)
+as long as we need it to handle your request, and then for up to 12 months.</p>
+
+<h2>Steam (coming later)</h2>
+<p>We plan a PC version on Steam. If it ships, Valve will share your Steam account ID and Steam name with the game so it can
+save your progress and show your name to other players, and will store your Steam achievements and stats. Purchases there are
+handled by Valve. We will update this policy before it launches.</p>
+
+<h2>Why we use it</h2>
+<ul>
+<li><b>To run the game you chose to play:</b> saves, multiplayer, voice chat, leaderboards and purchases.</li>
+<li><b>To keep players safe:</b> reports, blocks, kicks and bans.</li>
+<li><b>To fix and improve the game:</b> letters, support email and the totals from Roblox's analytics.</li>
+</ul>
+<p>Under the EU and UK GDPR, our legal bases are performing our agreement with you (running the game), our legitimate interests
+in safety, fixing bugs and improving the game, and your consent for the microphone, which you can withdraw at any time.</p>
 
 <h2>Who processes it</h2>
-<p>Online features are provided by Unity Technologies (Unity Gaming Services, including Moderation, and Vivox). The game is distributed through the
-Meta Horizon Store, so Meta's own terms and privacy policy apply to your Meta account and the store.
-See <a href="https://unity.com/legal/game-player-and-app-user-privacy-policy">Unity's privacy policy</a> and
-<a href="https://www.meta.com/legal/privacy-policy/">Meta's privacy policy</a>.</p>
-
-<h2>Children</h2>
-<p>Lanternhall is intended for teens and adults and is not directed to children under 13. If you believe a child under 13 has
-used the online features, contact us and we will help remove any associated data we are able to.</p>
-
-<h2>Your choices</h2>
 <ul>
-<li>Play offline, or deny the microphone, to limit what is shared.</li>
-<li>Change your player name at any time in the game.</li>
-<li>Uninstall the game or clear its data to remove everything stored on your headset.</li>
-<li>Email us to ask about, or request deletion of, any data tied to your anonymous player ID.</li>
+<li><b>Meta</b>: the Quest headset and the Meta Horizon Store (<a href="https://www.meta.com/legal/privacy-policy/">privacy policy</a>).</li>
+<li><b>Roblox</b>: the Roblox platform, saves, leaderboards, chat, badges, purchases and analytics
+(<a href="https://www.roblox.com/info/privacy">privacy policy</a>).</li>
+<li><b>Unity</b>: the Quest version's sign-in, multiplayer, Vivox voice chat and Moderation, and the game engine
+(<a href="https://unity.com/legal/game-player-and-app-user-privacy-policy">privacy policy</a>).</li>
+<li><b>Cloudflare</b>: the letterbox relay, our domain's DNS and incoming email (<a href="https://www.cloudflare.com/privacypolicy/">privacy policy</a>).</li>
+<li><b>GitHub</b>: hosts this website and keeps letterbox letters in a private repository
+(<a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">privacy statement</a>).</li>
+<li><b>Discord</b>: letterbox alerts in our private channel, and any message you send us there (<a href="https://discord.com/privacy">privacy policy</a>).</li>
+<li><b>Resend</b>: sends our email replies and backup copies of letters (<a href="https://resend.com/legal/privacy-policy">privacy policy</a>).</li>
+<li><b>Google</b>: Google Fonts on this website and our support inbox (<a href="https://policies.google.com/privacy">privacy policy</a>).</li>
+</ul>
+<p>These companies may process information in the United States and other countries. We share information only with them,
+only for the purposes above, or when the law requires it.</p>
+
+<h2>How long we keep it</h2>
+<ul>
+<li><b>Letterbox letters:</b> 12 months, then deleted.</li>
+<li><b>Support email:</b> as long as we need it to handle your request, then up to 12 months.</li>
+<li><b>Roblox saves and leaderboard rows:</b> until you ask us to delete them, or Roblox tells us your account's data must be
+erased (for example, after you delete your Roblox account).</li>
+<li><b>Hall listings on Roblox:</b> gone within an hour of the hall closing.</li>
+<li><b>Quest data on your headset:</b> until you uninstall the game or clear its data. Your anonymous player ID and any report
+filed with Unity are kept by Unity under its own policy; ask us and we will request their deletion.</li>
 </ul>
 
+<h2>Children</h2>
+<ul>
+<li><b>Roblox:</b> the Roblox version is open to players of all ages, including under 13, through Roblox's own accounts, age
+checks and parental controls. We collect no personal information directly from children beyond what Roblox provides to every
+experience: the Roblox user ID (and display name) is used in the game for saves and boards, and letterbox letters carry only a
+pseudonymous tag and Roblox-filtered words. The game never asks players for their real name, contact details or photos.</li>
+<li><b>Meta Quest:</b> the Quest version is for teens and adults and follows Meta's age requirements for Meta accounts. It is
+not directed to children under 13.</li>
+<li><b>Parents:</b> email <a href="mailto:{MAIL}">{MAIL}</a> to ask what we hold about your child or to have it deleted. For
+Roblox, tell us your child's Roblox username so we can find their save.</li>
+</ul>
+
+<h2>Your rights</h2>
+<p>Wherever you live, you can ask us for a copy of the information we hold about you, and ask us to correct or delete it. Email
+<a href="mailto:{MAIL}">{MAIL}</a>. We may ask for something that shows the account is yours, and we will answer within a month.</p>
+<ul>
+<li><b>Deleting your data on Roblox:</b> deleting your Roblox account makes Roblox send us an erasure request, and we then delete
+your save and your leaderboard rows. You can also email us your Roblox username. Your letters don't carry your user ID, but if
+you give us your username we can find them by their tag and delete them too.</li>
+<li><b>Deleting your data on Quest:</b> uninstall the game or clear its data to remove everything on your headset, and email us
+to have data tied to your anonymous player ID deleted.</li>
+<li><b>EU and UK:</b> under the GDPR you also have the right to restrict or object to our use of your information, to data
+portability, and to withdraw consent at any time. You can complain to your local data protection authority (in the UK, the
+Information Commissioner's Office).</li>
+<li><b>US states:</b> if your state gives you privacy rights (such as California, Colorado, Connecticut, Virginia or Texas), you
+can ask to know, access, correct and delete your information, and you can use an authorized agent. We don't sell personal
+information, share it for targeted advertising, or use it to profile you, and we won't treat you differently for using your
+rights.</li>
+<li><b>Choices in the game:</b> play offline or deny the microphone on Quest to limit what is shared, and change your Quest
+player name at any time.</li>
+</ul>
+
+<h2>Keeping it safe</h2>
+<p>Service keys are kept as secrets, never in the games. Letters are kept in a private repository, and players' words are
+filtered before they leave Roblox. No system is perfectly secure, but we keep what we hold small.</p>
+
 <h2>Changes</h2>
-<p>If this policy changes, we will update it on this page and change the date above.</p>
+<p>If this policy changes, we will update this page and its effective date.</p>
+
+<h2>Contact</h2>
+<p>Nicholas Scheetz, doing business as Lanternhall Games: <a href="mailto:{MAIL}">{MAIL}</a>.</p>
+</main>
+""" + FOOT
+
+TERMS = head("Terms of Use: Lanternhall", "The rules for playing Lanternhall and using this website.", "terms.html",
+             note=DRAFT_NOTE) + f"""
+<main class="doc">
+<h1>Terms of Use</h1>
+<p class="meta">Lanternhall &middot; Effective November 27, 2026</p>
+
+<p>These terms cover Lanternhall on Meta Quest, Lanternhall on Roblox, any later versions (such as on Steam) and this website.
+By playing or using the site, you agree to them. The platform you play on has its own terms too:
+<a href="https://www.roblox.com/info/terms">Roblox's Terms of Use</a>, <a href="https://www.meta.com/legal/supplemental-terms-of-service/">Meta's terms</a>
+or <a href="https://store.steampowered.com/subscriber_agreement/">the Steam Subscriber Agreement</a>. Where they cover something,
+such as your account or a purchase, the platform's terms come first.</p>
+
+<h2>Who we are</h2>
+<p>Lanternhall is made and run by Nicholas Scheetz, doing business as Lanternhall Games ("we" or "us"). Contact:
+<a href="mailto:{MAIL}">{MAIL}</a>.</p>
+
+<h2>Play fair, play kind</h2>
+<p>Lanternhall is a co-op game, and players of many ages play it. When you play, don't:</p>
+<ul>
+<li>harass, bully, threaten or spam other players;</li>
+<li>use hate speech or attack anyone for who they are;</li>
+<li>share personal information, yours or anyone else's (real names, addresses, phone numbers, social accounts), or ask others
+for theirs;</li>
+<li>cheat: use exploits, hacks, bots or mods that give you an unfair edge or spoil the game for others (if you find a bug, tell
+us instead of using it);</li>
+<li>post or say anything sexual, violent or otherwise unfit for younger players, or pretend to be us or a moderator;</li>
+<li>break the rules of the platform you play on.</li>
+</ul>
+
+<h2>Moderation</h2>
+<p>The games have report, block and ban systems. To keep play safe we may mute, kick or ban players (for a time or for good),
+remove or rename names and other content, and undo progress or items gained by cheating, with or without warning. Hosts of a
+hall can also show a player the door. Bans on Roblox use Roblox's own ban system. If you think we got it wrong, email us.</p>
+
+<h2>Virtual items and purchases</h2>
+<ul>
+<li>Purchases are made through the platform (Robux on Roblox, the Meta Horizon Store, or Steam) and are governed by that
+platform's terms.</li>
+<li>Coins, cosmetics, passes and other virtual items have no cash value. You get a licence to use them in the game, not
+ownership, and they can't be sold, traded or exchanged for money except where the platform allows it.</li>
+<li>Refunds follow the platform's rules. We can't issue refunds ourselves.</li>
+<li>We may change, rebalance or retire game content as the game is updated.</li>
+</ul>
+
+<h2>Your feedback</h2>
+<p>If you send us letters, emails, ideas or other feedback, you give us a free, worldwide, permanent licence to use, copy,
+change and build on it to improve and promote the games, without payment or credit. Please don't put personal information in
+feedback.</p>
+
+<h2>Our content</h2>
+<p>Lanternhall&trade; and all game content are &copy; 2026 Nicholas Scheetz, d/b/a Lanternhall Games. Some art, sound and music
+are used under licence from their creators. You may play the games for your own personal, non-commercial use. Don't copy, sell,
+reverse-engineer or redistribute them, or use our name or content in a way that suggests we endorse you, without our written
+permission.</p>
+
+<h2>VR health and safety</h2>
+<ul>
+<li>Play in a clear space, away from walls, furniture, stairs, people and pets, and keep your play boundary set up.</li>
+<li>Take regular breaks. Stop if you feel dizzy, sick, tired or have eye strain, and don't drive or do anything demanding until
+you feel well again.</li>
+<li>Follow <a href="https://www.meta.com/legal/quest/health-and-safety-warnings/">Meta's health and safety warnings</a>, including
+the age rules and the warnings about seizures.</li>
+</ul>
+
+<h2>No warranty</h2>
+<p>The games and this site are provided "as is" and "as available". To the extent the law allows, we make no promises that they
+will be error-free or always online, and online features may change, pause or end.</p>
+
+<h2>Limitation of liability</h2>
+<p>To the extent the law allows, we are not liable for indirect, incidental or consequential losses, or for lost data or
+progress, and our total liability for any claim is limited to what you paid for Lanternhall in the 12 months before the claim.
+Some places don't allow these limits, so they may not apply to you. Nothing in these terms takes away rights that consumer law
+gives you and that can't be waived.</p>
+
+<h2>Ending</h2>
+<p>You can stop playing at any time. We may suspend or end your access if you break these terms.</p>
+
+<h2>Governing law</h2>
+<p>These terms are governed by the laws of the United States and the state where the operator resides, without regard to
+conflict-of-law rules. If you live somewhere whose consumer laws give you rights that can't be waived, you keep those rights.</p>
+
+<h2>Changes</h2>
+<p>If these terms change, we will update this page and its effective date. Playing after a change means you accept the new
+terms.</p>
+
+<h2>Contact</h2>
+<p>Nicholas Scheetz, doing business as Lanternhall Games: <a href="mailto:{MAIL}">{MAIL}</a>.</p>
 </main>
 """ + FOOT
 
@@ -598,7 +818,7 @@ pre{white-space:pre-wrap;margin:0;color:var(--dim);font-size:.85rem}
 
 build_notice()
 for name, body in [("index.html", INDEX), ("guide.html", build_guide()), ("updates.html", UPDATES), ("support.html", SUPPORT),
-                   ("privacy.html", PRIVACY), ("404.html", NOTFOUND), ("report.html", REPORT)]:
+                   ("privacy.html", PRIVACY), ("terms.html", TERMS), ("404.html", NOTFOUND), ("report.html", REPORT)]:
     open(name, "w", encoding="utf-8", newline="\n").write(body)
 open("CNAME", "w", newline="\n").write("lanternhallvr.com\n")
 open(".nojekyll", "w").write("")
